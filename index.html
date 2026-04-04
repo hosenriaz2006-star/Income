@@ -8,17 +8,14 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <script src='//libtl.com/sdk.js' data-zone='8690632' data-sdk='show_8690632'></script>
-    
     <script src='//libtl.com/sdk.js' data-zone='8690632' data-sdk='show_8690632'></script>
     
     <!-- Social Bar Ads -->
-  <script src="https://pl29060371.profitablecpmratenetwork.com/b4/56/77/b45677b6da858a405fe18219565ec10d.js"></script>
-
+    <script src="https://pl29060371.profitablecpmratenetwork.com/b4/56/77/b45677b6da858a405fe18219565ec10d.js"></script>
     
     <!-- Pounder Ads -->
-  <script src="https://pl29060362.profitablecpmratenetwork.com/6f/77/34/6f77345e70ab503e89dfa39ef72c9cd1.js"></script>
+    <script src="https://pl29060362.profitablecpmratenetwork.com/6f/77/34/6f77345e70ab503e89dfa39ef72c9cd1.js"></script>
 
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -50,6 +47,10 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .popup-anim { animation: popUp 0.3s ease-out; }
+        
+        .refer-box {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
     </style>
 </head>
 <body class="max-w-md mx-auto">
@@ -150,7 +151,6 @@
                             <button id="task-btn-3" class="bg-green-600 text-white font-bold px-6 py-2 rounded-lg text-sm btn" onclick="startWebTask(3)">Visit</button>
                         </div>
 
-                        <!-- New Ad Reward Section -->
                         <h3 class="text-xs font-bold text-gray-500 uppercase mt-4">Ad Rewards</h3>
                         <div class="bg-gradient-to-r from-purple-600 to-pink-600 p-5 rounded-2xl flex items-center justify-between text-white">
                             <div class="flex items-center space-x-3">
@@ -188,20 +188,49 @@
             </div>
 
             <div id="refer-page" class="p-4 space-y-6 sub-page">
-                 <h2 class="text-xl font-bold text-center">Refer & Earn</h2>
-                 <div class="card-bg p-6 rounded-lg text-center">
-                     <p class="text-gray-400 mb-2">Your Referral Code</p>
-                     <div class="bg-gray-800 p-3 rounded-lg flex items-center justify-center mb-4">
-                         <span id="referral-code" class="text-2xl font-bold tracking-widest">LOADING...</span>
-                         <button id="copy-code-btn" class="ml-4"><i data-lucide="copy" class="w-6 h-6 text-gray-400"></i></button>
-                     </div>
-                 </div>
-                 <button id="share-btn" class="w-full p-3 rounded-lg btn-accent">Share Your Code</button>
-                 <div class="card-bg p-4 rounded-lg mt-6">
-                    <h3 class="font-semibold mb-3 text-center">Have a Referral Code?</h3>
-                    <input id="enter-referral-code" type="text" placeholder="Enter code here" class="w-full p-3 rounded-lg input-field mb-3">
-                    <button id="apply-referral-btn" class="w-full p-3 rounded-lg btn-outline-accent">Apply Code</button>
-                 </div>
+                <h2 class="text-xl font-bold text-center mb-2">Refer & Earn 💰</h2>
+                <p class="text-center text-gray-400 text-sm mb-6">বন্ধুদের রেফার করে প্রতি সফল রেফারে ১০০ টাকা পান।<br><span class="text-amber-400 font-medium">Withdraw করতে ন্যূনতম ৫টি রেফার করতে হবে।</span></p>
+                
+                <div class="refer-box p-6 rounded-2xl text-center text-white shadow-xl">
+                    <div class="mb-4">
+                        <span class="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-2xl text-4xl mb-3">👥</span>
+                    </div>
+                    <p class="text-sm opacity-90 mb-1">আপনার রেফারেল কোড</p>
+                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl flex items-center justify-center mb-5 border border-white/30">
+                        <span id="referral-code" class="text-3xl font-bold tracking-[4px] text-white">LOADING...</span>
+                        <button id="copy-code-btn" class="ml-4 p-2 hover:bg-white/20 rounded-xl transition-colors">
+                            <i data-lucide="copy" class="w-7 h-7"></i>
+                        </button>
+                    </div>
+                    
+                    <button onclick="shareReferralLink()" 
+                            class="w-full bg-white text-emerald-700 font-bold py-4 rounded-2xl text-lg flex items-center justify-center gap-2 active:scale-95 transition-all shadow-lg">
+                        <i data-lucide="share-2" class="w-6 h-6"></i>
+                        বন্ধুদের সাথে শেয়ার করুন
+                    </button>
+                </div>
+
+                <div class="card-bg p-6 rounded-2xl mt-8">
+                    <h3 class="font-semibold mb-4 text-center text-lg">Have a Referral Code?</h3>
+                    <input id="enter-referral-code" type="text" placeholder="Enter referral code here" 
+                           class="w-full p-4 rounded-2xl input-field mb-4 text-lg">
+                    <button id="apply-referral-btn" 
+                            class="w-full p-4 rounded-2xl btn-outline-accent font-bold text-lg">Apply Code</button>
+                </div>
+
+                <div class="mt-8 bg-yellow-900/30 border border-yellow-500/30 p-5 rounded-2xl">
+                    <div class="flex gap-3 items-start">
+                        <span class="text-3xl">📋</span>
+                        <div class="text-sm leading-relaxed">
+                            <p class="font-medium text-amber-400 mb-1">নিয়ম:</p>
+                            <ul class="list-disc pl-5 space-y-1 text-gray-300">
+                                <li>প্রতি সফল রেফারে <span class="text-white font-bold">১০০ টাকা</span> বোনাস</li>
+                                <li>Withdraw করতে <span class="text-white font-bold">কমপক্ষে ৫টি রেফার</span> করতে হবে</li>
+                                <li>রেফার করা ব্যক্তি অ্যাপে জয়েন করে কাজ শুরু করলে বোনাস পাবেন</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="profile-page" class="p-4 space-y-6 sub-page">
@@ -258,9 +287,9 @@
     </div>
     
     <div id="custom-alert" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="bg-gray-800 rounded-lg p-6 w-full max-w-sm text-center">
-            <p id="alert-message" class="mb-4"></p>
-            <button id="alert-ok-btn" class="btn-accent px-6 py-2 rounded-lg">OK</button>
+        <div class="bg-gray-800 rounded-2xl p-6 w-full max-w-sm text-center">
+            <p id="alert-message" class="mb-6 text-lg"></p>
+            <button id="alert-ok-btn" class="btn-accent px-10 py-3 rounded-2xl w-full font-bold">OK</button>
         </div>
     </div>
 
@@ -301,6 +330,8 @@
         const adsLeftCountEl = document.getElementById('ads-left-count');
         const paymentDetailsContainer = document.getElementById('payment-details-container');
 
+        const BOT_USERNAME = "bdfreeincometkBot"; // আপনার বটের username
+
         window.onload = () => {
             lucide.createIcons();
             setupEventListeners();
@@ -310,8 +341,13 @@
             openWelcomeModal();
         };
 
-        function openWelcomeModal() { document.getElementById('welcome-modal').classList.remove('hidden'); }
-        window.closeWelcomeModal = function() { document.getElementById('welcome-modal').classList.add('hidden'); }
+        function openWelcomeModal() { 
+            document.getElementById('welcome-modal').classList.remove('hidden'); 
+        }
+        
+        window.closeWelcomeModal = function() { 
+            document.getElementById('welcome-modal').classList.add('hidden'); 
+        }
 
         async function handleAuthStateChange(user) {
             if (user) {
@@ -347,11 +383,18 @@
                 } else {
                     const ownReferralCode = Math.random().toString(36).substring(2, 8).toUpperCase();
                     const defaultUserData = {
-                        uid: currentUser.uid, name: currentUser.displayName || currentUser.email.split('@')[0], email: currentUser.email,
-                        balance: 50, referralCode: ownReferralCode, referredBy: null,
+                        uid: currentUser.uid, 
+                        name: currentUser.displayName || currentUser.email.split('@')[0], 
+                        email: currentUser.email,
+                        balance: 50, 
+                        referralCode: ownReferralCode, 
+                        referredBy: null,
+                        referralCount: 0,           // নতুন: রেফার সংখ্যা ট্র্যাক করার জন্য
                         lastNotificationCheck: new Date(),
                         createdAt: serverTimestamp(),
-                        dailyAdCount: 0, lastAdWatchDate: new Date().toISOString().split('T')[0], isBlocked: false
+                        dailyAdCount: 0, 
+                        lastAdWatchDate: new Date().toISOString().split('T')[0], 
+                        isBlocked: false
                     };
                     await setDoc(userRef, defaultUserData);
                     userData = defaultUserData;
@@ -440,8 +483,16 @@
         window.navigateTo = navigateTo;
 
         function setupEventListeners() {
-            document.getElementById('show-signup').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('login-view').classList.add('hidden'); document.getElementById('signup-view').classList.remove('hidden'); });
-            document.getElementById('show-login').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('signup-view').classList.add('hidden'); document.getElementById('login-view').classList.remove('hidden'); });
+            document.getElementById('show-signup').addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                document.getElementById('login-view').classList.add('hidden'); 
+                document.getElementById('signup-view').classList.remove('hidden'); 
+            });
+            document.getElementById('show-login').addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                document.getElementById('signup-view').classList.add('hidden'); 
+                document.getElementById('login-view').classList.remove('hidden'); 
+            });
             document.getElementById('signup-btn').addEventListener('click', handleSignup);
             document.getElementById('login-btn').addEventListener('click', handleLogin);
             document.getElementById('logout-btn').addEventListener('click', handleLogout);
@@ -453,25 +504,27 @@
                     navigateTo(pageId);
                 });
             });
-            document.getElementById('notification-bell').addEventListener('click', () => { navigateTo('notifications-page'); loadNotifications(); });
+            document.getElementById('notification-bell').addEventListener('click', () => { 
+                navigateTo('notifications-page'); 
+                loadNotifications(); 
+            });
             document.getElementById('copy-code-btn').addEventListener('click', copyReferralCode);
-            document.getElementById('share-btn').addEventListener('click', shareReferralCode);
-            document.getElementById('withdraw-btn').addEventListener('click', handleWithdrawal);
-            document.getElementById('home-withdraw-btn').addEventListener('click', () => navigateTo('wallet-page'));
             document.getElementById('apply-referral-btn').addEventListener('click', handleApplyReferralCode);
             withdrawMethodSelect.addEventListener('change', updateDynamicPaymentFields);
+            document.getElementById('withdraw-btn').addEventListener('click', handleWithdrawal);
+            document.getElementById('home-withdraw-btn').addEventListener('click', () => navigateTo('wallet-page'));
         }
 
         async function handleSignup() {
-            const name = document.getElementById('signup-name').value;
-            const email = document.getElementById('signup-email').value;
+            const name = document.getElementById('signup-name').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
             const password = document.getElementById('signup-password').value;
             if (!name || !email || !password) return showAlert("Please fill all fields.");
             loader.style.display = 'flex';
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const userRef = doc(db, "users", userCredential.user.uid);
-                await updateDoc(userRef, { name: name });
+                await setDoc(userRef, { name: name }, { merge: true });
             } catch (error) {
                 showAlert(error.message);
             } finally {
@@ -480,7 +533,7 @@
         }
 
         async function handleLogin() {
-            const email = document.getElementById('login-email').value;
+            const email = document.getElementById('login-email').value.trim();
             const password = document.getElementById('login-password').value;
             if (!email || !password) return showAlert("Please enter email and password.");
             loader.style.display = 'flex';
@@ -493,7 +546,9 @@
             }
         }
 
-        async function handleLogout() { await signOut(auth); }
+        async function handleLogout() { 
+            await signOut(auth); 
+        }
         
         async function checkNewNotifications() {
             const lastCheck = userData.lastNotificationCheck;
@@ -574,14 +629,27 @@
                     const referrerDoc = querySnapshot.docs[0];
                     const referrerRef = doc(db, "users", referrerDoc.id);
                     const referrerData = referrerDoc.data();
-                    await updateDoc(referrerRef, { balance: (referrerData.balance || 0) + 100 });
+
+                    // Referrer-কে ১০০ টাকা + রেফার কাউন্ট বাড়ানো
+                    await updateDoc(referrerRef, { 
+                        balance: (referrerData.balance || 0) + 100,
+                        referralCount: (referrerData.referralCount || 0) + 1
+                    });
+
+                    // নতুন ইউজারকে ১০০ টাকা
                     const newUserRef = doc(db, "users", currentUser.uid);
-                    await updateDoc(newUserRef, { balance: (userData.balance || 0) + 100, referredBy: referrerCode });
-                    userData.balance += 100; userData.referredBy = referrerCode;
+                    await updateDoc(newUserRef, { 
+                        balance: (userData.balance || 0) + 100, 
+                        referredBy: referrerCode 
+                    });
+
+                    userData.balance += 100; 
+                    userData.referredBy = referrerCode;
                     updateUI();
-                    if(isManualApply) showAlert("Code applied successfully! You have received ১০০ ৳.");
+                    
+                    if(isManualApply) showAlert("✅ Code applied successfully! You have received ১০০ ৳.");
                 } else {
-                    if(isManualApply) showAlert("Invalid referral code.");
+                    if(isManualApply) showAlert("❌ Invalid referral code.");
                 }
             } catch(error) {
                 console.error("Error applying referral bonus: ", error);
@@ -610,14 +678,25 @@
             if (amount > userData.balance) return showAlert("Insufficient balance.");
             if (!paymentDetail) return showAlert(`Please enter your ${method} number.`);
 
+            // নতুন চেক: Withdraw-এর জন্য কমপক্ষে ৫ রেফার দরকার
+            if ((userData.referralCount || 0) < 5) {
+                return showAlert("Withdraw করতে কমপক্ষে ৫টি সফল রেফার করতে হবে।");
+            }
+
             loader.style.display = 'flex';
             try {
                 await updateBalance(-amount);
                 await addDoc(collection(db, "withdrawals"), {
-                    userId: currentUser.uid, userName: userData.name, userEmail: userData.email,
-                    amount: amount, method: method, paymentDetail: paymentDetail, status: "pending", requestedAt: serverTimestamp()
+                    userId: currentUser.uid, 
+                    userName: userData.name, 
+                    userEmail: userData.email,
+                    amount: amount, 
+                    method: method, 
+                    paymentDetail: paymentDetail, 
+                    status: "pending", 
+                    requestedAt: serverTimestamp()
                 });
-                showAlert("Withdrawal request submitted successfully!");
+                showAlert("✅ Withdrawal request submitted successfully! Admin will process soon.");
                 document.getElementById('withdraw-amount').value = '';
                 if(paymentDetailInput) paymentDetailInput.value = '';
                 loadWithdrawalHistory();
@@ -631,18 +710,35 @@
 
         function copyReferralCode() {
             const textToCopy = referralCodeEl.textContent;
-            navigator.clipboard.writeText(textToCopy).then(() => { showAlert("Referral code copied!"); }).catch(err => { showAlert("Failed to copy code."); });
+            navigator.clipboard.writeText(textToCopy).then(() => { 
+                showAlert("✅ Referral code copied to clipboard!"); 
+            }).catch(err => { 
+                showAlert("Failed to copy code."); 
+            });
         }
         
-        function shareReferralCode() {
-            const text = `Join Taka Income BD and earn money! Use my referral code: ${userData.referralCode}`;
-            if (navigator.share) {
-                navigator.share({ title: 'Join Taka Income BD!', text: text, url: window.location.href }).catch((error) => console.error("Share failed:", error));
-            } else {
-                copyReferralCode();
-                showAlert("Referral code copied!");
+        // নতুন ফাংশন: Telegram Bot-এর সাথে Referral Link শেয়ার
+        window.shareReferralLink = function() {
+            if (!userData || !userData.referralCode) {
+                return showAlert("Please wait, loading your code...");
             }
-        }
+
+            const referralLink = `https://t.me/\( {BOT_USERNAME}?start= \){userData.referralCode}`;
+            const shareText = `আসসালামু আলাইকুম! 🔥\n\nTaka Income BD-তে জয়েন করুন এবং প্রতিদিন আয় করুন।\nপ্রতি রেফারে ১০০ টাকা বোনাস পাবেন!\n\nMy Referral Code: ${userData.referralCode}\n\n👇 Click to join now:`;
+
+            if (window.Telegram && window.Telegram.WebApp) {
+                // Telegram Mini App-এ শেয়ার (সুন্দরভাবে)
+                window.Telegram.WebApp.shareURL ? 
+                    window.Telegram.WebApp.shareURL(referralLink, shareText) :
+                    window.open(`https://t.me/share/url?url=\( {encodeURIComponent(referralLink)}&text= \){encodeURIComponent(shareText)}`, '_blank');
+            } else {
+                // Normal browser fallback
+                const fullText = `\( {shareText}\n\n \){referralLink}`;
+                navigator.clipboard.writeText(fullText).then(() => {
+                    showAlert("✅ Referral link copied!\n\nSend this link to your friends via Telegram.");
+                });
+            }
+        };
 
         window.startWebTask = async function(taskId) {
             const today = new Date().toISOString().split('T')[0];
@@ -683,7 +779,7 @@
                         userData.balance += 50;
                         userData.dailyAdCount = newCount;
                         updateUI();
-                        showAlert("Task Complete! ৫০ ৳ added.");
+                        showAlert("✅ Task Complete! ৫০ ৳ added to your balance.");
                         btn.innerText = "Done ✅";
                     } catch (e) {
                         console.error(e);
@@ -696,7 +792,6 @@
             }, 1000);
         };
 
-        // New Special Ad Function with your link
         window.claimSpecialAd = async function() {
             if (!currentUser) return showAlert("Please login first!");
 
@@ -712,12 +807,10 @@
                 return showAlert("আজকের কাজ শেষ! আগামীকাল আবার চেষ্টা করুন।");
             }
 
-            // Open your ad link
             window.open("https://www.profitablecpmratenetwork.com/f2au7ibk?key=c04c1dcccadb8bf2db4b71dc80cccb2f", "_blank");
 
             loader.style.display = 'flex';
 
-            // Give reward after delay (user watches ad)
             setTimeout(async () => {
                 loader.style.display = 'none';
                 try {
@@ -736,11 +829,11 @@
                     console.error(e);
                     showAlert("Error adding reward. Please try again.");
                 }
-            }, 8000); // 8 seconds delay
+            }, 8000);
         };
 
         function showAlert(message) {
-            document.getElementById('alert-message').textContent = message;
+            document.getElementById('alert-message').innerHTML = message;
             document.getElementById('custom-alert').classList.remove('hidden');
             document.getElementById('alert-ok-btn').onclick = () => {
                 document.getElementById('custom-alert').classList.add('hidden');
@@ -749,4 +842,4 @@
         window.showAlert = showAlert;
     </script>
 </body>
-    </html>
+</html>
