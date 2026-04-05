@@ -59,6 +59,9 @@
             <div id="wallet-page" class="sub-page space-y-5">
                 <div class="card-bg p-8 rounded-[2.5rem] space-y-5">
                     <h2 class="text-2xl font-bold text-center">উইথড্র</h2>
+                    <div class="bg-red-500/10 p-3 rounded-xl border border-red-500/20 text-center text-[11px] text-red-400">
+                        শর্ত: কমপক্ষে ৫টি রেফার থাকতে হবে। (আপনার রেফার: <span id="req-ref">0</span>/5)
+                    </div>
                     <select id="withdraw-method" class="w-full p-4 rounded-2xl outline-none">
                         <option value="Bkash">Bkash (Personal)</option>
                         <option value="Nagad">Nagad (Personal)</option>
@@ -72,23 +75,29 @@
             <div id="refer-page" class="sub-page space-y-6">
                 <div class="card-bg p-8 rounded-[2.5rem] text-center">
                     <i data-lucide="users" class="w-12 h-12 text-emerald-500 mx-auto mb-4"></i>
-                    <h2 class="text-2xl font-bold">রেফার করে আয় করুন</h2>
-                    <p class="text-gray-400 text-sm mt-2">প্রতি রেফারে পাবেন ৫০ টাকা বোনাস।</p>
-                    <div class="mt-6 p-4 bg-black/40 rounded-2xl border border-white/5 break-all text-xs font-mono" id="refer-link-text">Loading link...</div>
+                    <h2 class="text-2xl font-bold">রেফার ও আয়</h2>
+                    <p class="text-gray-400 text-sm mt-2">প্রতি সফল রেফারে পাবেন ৫০ টাকা বোনাস।</p>
+                    <div class="mt-6 p-4 bg-black/40 rounded-2xl border border-white/5 break-all text-[10px] font-mono" id="refer-link-text">Loading...</div>
                     <button onclick="copyRefer()" class="w-full btn-emerald py-4 rounded-2xl mt-4 flex items-center justify-center gap-2">
-                        <i data-lucide="copy"></i> লিঙ্ক কপি করুন
+                        <i data-lucide="copy"></i> কপি লিঙ্ক
                     </button>
                 </div>
             </div>
 
             <div id="profile-page" class="sub-page space-y-6 text-center">
                 <div class="card-bg p-8 rounded-[2.5rem]">
-                    <div class="w-20 h-20 bg-emerald-500/10 rounded-full mx-auto flex items-center justify-center mb-4"><i data-lucide="user" class="w-10 text-emerald-500"></i></div>
-                    <h2 id="user-name" class="text-xl font-bold italic">User</h2>
-                    <p class="text-gray-500 text-xs">User ID: <span id="user-id">0</span></p>
-                    <div class="mt-6 flex justify-around">
-                        <div><p class="text-[10px] text-gray-500 uppercase">Refer</p><p id="total-ref" class="text-lg font-bold">0</p></div>
-                        <div onclick="contactAdmin()" class="cursor-pointer"><p class="text-[10px] text-emerald-500 uppercase">Admin</p><p class="text-sm font-bold">Chat</p></div>
+                    <div class="w-16 h-16 bg-emerald-500/10 rounded-full mx-auto flex items-center justify-center mb-4"><i data-lucide="user" class="w-8 text-emerald-500"></i></div>
+                    <h2 id="user-name" class="text-lg font-bold">User</h2>
+                    <p class="text-gray-500 text-xs">ID: <span id="user-id">0</span></p>
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="bg-black/50 p-3 rounded-2xl border border-white/5">
+                            <p class="text-[10px] text-gray-500 uppercase">Total Refer</p>
+                            <p id="total-ref" class="text-lg font-bold">0</p>
+                        </div>
+                        <div onclick="contactAdmin()" class="bg-emerald-500/5 p-3 rounded-2xl border border-emerald-500/10 cursor-pointer">
+                            <p class="text-[10px] text-emerald-500 uppercase">Support</p>
+                            <p class="text-sm font-bold">Admin</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -103,9 +112,9 @@
     </div>
 
     <div id="timer-overlay" class="fixed inset-0 bg-black/98 z-[200] hidden flex flex-col items-center justify-center p-8">
-        <div class="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mb-6"></div>
+        <div class="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mb-6"></div>
         <h3 id="timer-text" class="text-4xl font-black">30</h3>
-        <p class="text-gray-500 mt-2 tracking-widest">টাস্ক সম্পন্ন হচ্ছে...</p>
+        <p class="text-gray-500 mt-2">অপেক্ষা করুন...</p>
     </div>
 
     <script type="module">
@@ -131,8 +140,6 @@
             const user = tg.initDataUnsafe?.user;
             if(!user) return;
             const uid = user.id.toString();
-            
-            // Referral Check
             const startParam = tg.initDataUnsafe?.start_param;
 
             onSnapshot(doc(db, "config", "main"), (snap) => {
@@ -151,7 +158,6 @@
                 } else {
                     userData = { uid, name: user.first_name, balance: 0, totalRefer: 0 };
                     await setDoc(doc(db, "users", uid), userData);
-                    // Handle referral bonus for the inviter
                     if(startParam && startParam !== uid) {
                         await updateDoc(doc(db, "users", startParam), { 
                             balance: increment(50), 
@@ -172,13 +178,13 @@
             document.getElementById('user-name').innerText = userData.name;
             document.getElementById('user-id').innerText = userData.uid;
             document.getElementById('total-ref').innerText = userData.totalRefer || 0;
+            document.getElementById('req-ref').innerText = userData.totalRefer || 0;
             const refLink = `https://t.me/bdfreeincometkBot/app?startapp=${userData.uid}`;
             document.getElementById('refer-link-text').innerText = refLink;
         }
 
         window.copyRefer = () => {
-            const link = document.getElementById('refer-link-text').innerText;
-            navigator.clipboard.writeText(link);
+            navigator.clipboard.writeText(document.getElementById('refer-link-text').innerText);
             alert("লিঙ্ক কপি হয়েছে!");
         };
 
@@ -206,7 +212,6 @@
                 if(count <= 0) {
                     clearInterval(itv); overlay.classList.add('hidden');
                     await updateDoc(doc(db, "users", userData.uid), { balance: increment(50) });
-                    alert("৫০ টাকা বোনাস সফলভাবে যোগ হয়েছে!");
                 }
             }, 1000);
         };
@@ -219,11 +224,19 @@
         };
 
         document.getElementById('withdraw-btn').onclick = async () => {
+            // ৫টি রেফার চেক
+            if((userData.totalRefer || 0) < 5) {
+                alert("দুঃখিত! উইথড্র করতে কমপক্ষে ৫টি রেফার প্রয়োজন। আপনার বর্তমান রেফার: " + (userData.totalRefer || 0));
+                return;
+            }
+
             const amt = parseFloat(document.getElementById('withdraw-amount').value);
             const num = document.getElementById('payment-number').value;
             const method = document.getElementById('withdraw-method').value;
+            
             if(!amt || amt < 500 || amt > userData.balance) return alert("সঠিক পরিমাণ দিন (মিনিমাম ৫০০)!");
             if(!num) return alert("নম্বর দিন!");
+            
             await updateDoc(doc(db, "users", userData.uid), { balance: increment(-amt) });
             await addDoc(collection(db, "withdrawals"), { 
                 uid: userData.uid, 
@@ -233,7 +246,7 @@
                 number: num, 
                 time: serverTimestamp() 
             });
-            alert("উইথড্র রিকোয়েস্ট পাঠানো হয়েছে!");
+            alert("সফল! আপনার উইথড্র রিকোয়েস্ট পাঠানো হয়েছে।");
         };
 
         init();
