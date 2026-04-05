@@ -19,8 +19,8 @@
         .sub-page { display: none; }
         .sub-page.active { display: block; animation: slideUp 0.3s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .locked-btn { background: #262626 !important; color: #6b7280 !important; pointer-events: none; }
         .nav-active { color: #10b981 !important; transform: translateY(-5px); }
+        input, select { background: #000 !important; border: 1px solid #333 !important; color: #fff !important; }
     </style>
 </head>
 <body class="max-w-md mx-auto select-none">
@@ -42,67 +42,70 @@
             <div id="home-page" class="sub-page active space-y-6">
                 <div id="broadcast-box" class="hidden bg-blue-600/10 border border-blue-500/20 p-4 rounded-2xl flex items-start gap-3">
                     <i data-lucide="megaphone" class="w-5 text-blue-500 mt-1"></i>
-                    <p id="broadcast-text" class="text-sm text-blue-100 font-medium"></p>
+                    <p id="broadcast-text" class="text-sm text-blue-100"></p>
                 </div>
 
-                <div class="card-bg p-10 rounded-[2.5rem] text-center shadow-2xl relative overflow-hidden">
-                    <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">Current Balance</p>
-                    <h2 class="text-5xl font-black text-white mt-2 tracking-tighter">৳ <span id="tk-balance">0.00</span></h2>
-                </div>
-
-                <div id="official-box" class="card-bg p-6 rounded-3xl border border-emerald-500/20 flex justify-between items-center">
-                    <div>
-                        <h4 class="font-bold text-sm">Official Group Join</h4>
-                        <p class="text-[10px] text-emerald-500">Reward: ৳ ৫০.০০</p>
-                    </div>
-                    <button onclick="joinOfficial()" class="btn-emerald px-4 py-2 rounded-xl text-xs">Join Now</button>
+                <div class="card-bg p-10 rounded-[2.5rem] text-center shadow-2xl">
+                    <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">Balance</p>
+                    <h2 class="text-5xl font-black text-white mt-2">৳ <span id="tk-balance">0.00</span></h2>
                 </div>
 
                 <div class="space-y-4">
-                    <h3 class="font-bold flex items-center gap-2 text-gray-300"><i data-lucide="zap" class="w-5 text-yellow-500"></i> ডেইলি টাস্ক (২ মিনিট বিরতি)</h3>
+                    <h3 class="font-bold flex items-center gap-2 text-gray-300"><i data-lucide="zap" class="w-5 text-yellow-500"></i> আনলিমিটেড টাস্ক</h3>
                     <div id="task-list" class="space-y-3"></div>
                 </div>
             </div>
 
             <div id="wallet-page" class="sub-page space-y-5">
-                <div class="card-bg p-8 rounded-[2.5rem] space-y-5 text-center">
-                    <h2 class="text-2xl font-bold">উইথড্র</h2>
-                    <input id="withdraw-amount" type="number" placeholder="৳ পরিমাণ" class="w-full p-4 rounded-2xl bg-black/50 border border-white/5 outline-none focus:border-emerald-500">
-                    <input id="payment-number" type="number" placeholder="বিকাশ/নগদ নম্বর" class="w-full p-4 rounded-2xl bg-black/50 border border-white/5 outline-none focus:border-emerald-500">
+                <div class="card-bg p-8 rounded-[2.5rem] space-y-5">
+                    <h2 class="text-2xl font-bold text-center">উইথড্র</h2>
+                    <select id="withdraw-method" class="w-full p-4 rounded-2xl outline-none">
+                        <option value="Bkash">Bkash (Personal)</option>
+                        <option value="Nagad">Nagad (Personal)</option>
+                    </select>
+                    <input id="withdraw-amount" type="number" placeholder="পরিমাণ (৳)" class="w-full p-4 rounded-2xl outline-none">
+                    <input id="payment-number" type="number" placeholder="বিকাশ/নগদ নম্বর" class="w-full p-4 rounded-2xl outline-none">
                     <button id="withdraw-btn" class="w-full py-4 rounded-2xl btn-emerald">রিকোয়েস্ট পাঠান</button>
                 </div>
             </div>
 
-            <div id="profile-page" class="sub-page space-y-6">
+            <div id="refer-page" class="sub-page space-y-6">
                 <div class="card-bg p-8 rounded-[2.5rem] text-center">
+                    <i data-lucide="users" class="w-12 h-12 text-emerald-500 mx-auto mb-4"></i>
+                    <h2 class="text-2xl font-bold">রেফার করে আয় করুন</h2>
+                    <p class="text-gray-400 text-sm mt-2">প্রতি রেফারে পাবেন ৫০ টাকা বোনাস।</p>
+                    <div class="mt-6 p-4 bg-black/40 rounded-2xl border border-white/5 break-all text-xs font-mono" id="refer-link-text">Loading link...</div>
+                    <button onclick="copyRefer()" class="w-full btn-emerald py-4 rounded-2xl mt-4 flex items-center justify-center gap-2">
+                        <i data-lucide="copy"></i> লিঙ্ক কপি করুন
+                    </button>
+                </div>
+            </div>
+
+            <div id="profile-page" class="sub-page space-y-6 text-center">
+                <div class="card-bg p-8 rounded-[2.5rem]">
                     <div class="w-20 h-20 bg-emerald-500/10 rounded-full mx-auto flex items-center justify-center mb-4"><i data-lucide="user" class="w-10 text-emerald-500"></i></div>
-                    <h2 id="user-name" class="text-xl font-bold">User Name</h2>
-                    <p class="text-gray-500 text-xs mt-1">ID: <span id="user-id">0000</span></p>
-                    <div class="grid grid-cols-2 gap-4 mt-8">
-                        <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
-                            <p class="text-[10px] text-gray-500 uppercase">Refer</p>
-                            <p id="total-ref" class="text-lg font-bold">0</p>
-                        </div>
-                        <div onclick="contactAdmin()" class="bg-emerald-500/10 p-4 rounded-2xl border border-emerald-500/20 cursor-pointer">
-                            <p class="text-[10px] text-emerald-500 uppercase">Support</p>
-                            <p class="text-sm font-bold">Contact Admin</p>
-                        </div>
+                    <h2 id="user-name" class="text-xl font-bold italic">User</h2>
+                    <p class="text-gray-500 text-xs">User ID: <span id="user-id">0</span></p>
+                    <div class="mt-6 flex justify-around">
+                        <div><p class="text-[10px] text-gray-500 uppercase">Refer</p><p id="total-ref" class="text-lg font-bold">0</p></div>
+                        <div onclick="contactAdmin()" class="cursor-pointer"><p class="text-[10px] text-emerald-500 uppercase">Admin</p><p class="text-sm font-bold">Chat</p></div>
                     </div>
                 </div>
             </div>
         </main>
 
-        <nav class="fixed bottom-0 left-0 right-0 bg-[#0a0a0a] border-t border-white/5 px-10 py-5 flex justify-between items-center z-[90]">
-            <button onclick="navigateTo('home-page', this)" class="nav-item nav-active transition-all"><i data-lucide="home"></i></button>
-            <button onclick="navigateTo('wallet-page', this)" class="nav-item text-gray-600 transition-all"><i data-lucide="wallet"></i></button>
-            <button onclick="navigateTo('profile-page', this)" class="nav-item text-gray-600 transition-all"><i data-lucide="user"></i></button>
+        <nav class="fixed bottom-0 left-0 right-0 bg-[#0a0a0a] border-t border-white/5 px-6 py-5 flex justify-between items-center z-[90]">
+            <button onclick="navigateTo('home-page', this)" class="nav-item nav-active"><i data-lucide="home"></i></button>
+            <button onclick="navigateTo('refer-page', this)" class="nav-item text-gray-600"><i data-lucide="users"></i></button>
+            <button onclick="navigateTo('wallet-page', this)" class="nav-item text-gray-600"><i data-lucide="wallet"></i></button>
+            <button onclick="navigateTo('profile-page', this)" class="nav-item text-gray-600"><i data-lucide="user"></i></button>
         </nav>
     </div>
 
-    <div id="timer-overlay" class="fixed inset-0 bg-black/98 z-[200] hidden flex flex-col items-center justify-center p-8 text-center">
+    <div id="timer-overlay" class="fixed inset-0 bg-black/98 z-[200] hidden flex flex-col items-center justify-center p-8">
         <div class="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mb-6"></div>
         <h3 id="timer-text" class="text-4xl font-black">30</h3>
-        <p class="text-gray-500 mt-2">অপেক্ষা করুন...</p>
+        <p class="text-gray-500 mt-2 tracking-widest">টাস্ক সম্পন্ন হচ্ছে...</p>
     </div>
 
     <script type="module">
@@ -129,29 +132,34 @@
             if(!user) return;
             const uid = user.id.toString();
             
-            // Realtime Config & Broadcast
+            // Referral Check
+            const startParam = tg.initDataUnsafe?.start_param;
+
             onSnapshot(doc(db, "config", "main"), (snap) => {
                 config = snap.data() || {};
                 const bBox = document.getElementById('broadcast-box');
                 if(config.announcement) {
                     bBox.classList.remove('hidden');
                     document.getElementById('broadcast-text').innerText = config.announcement;
-                } else {
-                    bBox.classList.add('hidden');
                 }
                 renderTasks();
             });
 
-            // Realtime User Data
             onSnapshot(doc(db, "users", uid), async (snap) => {
                 if(snap.exists()) {
                     userData = snap.data();
                 } else {
-                    userData = { uid, name: user.first_name, balance: 0, lastTaskTime: 0, totalRefer: 0, officialJoined: false };
+                    userData = { uid, name: user.first_name, balance: 0, totalRefer: 0 };
                     await setDoc(doc(db, "users", uid), userData);
+                    // Handle referral bonus for the inviter
+                    if(startParam && startParam !== uid) {
+                        await updateDoc(doc(db, "users", startParam), { 
+                            balance: increment(50), 
+                            totalRefer: increment(1) 
+                        });
+                    }
                 }
                 updateUI();
-                renderTasks();
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('app-container').style.opacity = '1';
             });
@@ -164,15 +172,14 @@
             document.getElementById('user-name').innerText = userData.name;
             document.getElementById('user-id').innerText = userData.uid;
             document.getElementById('total-ref').innerText = userData.totalRefer || 0;
-            document.getElementById('official-box').style.display = userData.officialJoined ? 'none' : 'flex';
+            const refLink = `https://t.me/bdfreeincometkBot/app?startapp=${userData.uid}`;
+            document.getElementById('refer-link-text').innerText = refLink;
         }
 
-        window.joinOfficial = async () => {
-            window.open(config.linkTelegram, "_blank");
-            setTimeout(async () => {
-                await updateDoc(doc(db, "users", userData.uid), { balance: increment(50), officialJoined: true });
-                alert("জয়েন বোনাস ৫০ টাকা যোগ হয়েছে!");
-            }, 5000);
+        window.copyRefer = () => {
+            const link = document.getElementById('refer-link-text').innerText;
+            navigator.clipboard.writeText(link);
+            alert("লিঙ্ক কপি হয়েছে!");
         };
 
         window.contactAdmin = () => window.open("https://t.me/" + config.linkAdmin, "_blank");
@@ -180,18 +187,11 @@
         function renderTasks() {
             const list = document.getElementById('task-list');
             list.innerHTML = '';
-            const now = Date.now();
-            const cooldown = 2 * 60 * 1000;
-            const timeLeft = Math.max(0, (userData.lastTaskTime + cooldown) - now);
-
             for(let i=1; i<=3; i++) {
-                const isLocked = timeLeft > 0;
                 list.innerHTML += `
-                <div class="card-bg p-5 rounded-2xl flex justify-between items-center ${isLocked ? 'opacity-40' : ''}">
+                <div class="card-bg p-5 rounded-2xl flex justify-between items-center">
                     <div class="flex items-center gap-4">🌐 <div><p class="font-bold text-sm">টাস্ক 0${i}</p><p class="text-xs text-emerald-500">৳ ৫০.০০</p></div></div>
-                    <button onclick="startTask(${i}, '${config['linkWeb'+i]}')" class="px-6 py-2.5 rounded-xl text-xs font-bold ${isLocked ? 'locked-btn' : 'btn-emerald'}">
-                        ${isLocked ? Math.ceil(timeLeft/1000) + 's' : 'শুরু'}
-                    </button>
+                    <button onclick="startTask(${i}, '${config['linkWeb'+i]}')" class="px-6 py-2.5 rounded-xl text-xs font-bold btn-emerald">শুরু</button>
                 </div>`;
             }
         }
@@ -205,7 +205,8 @@
                 count--; document.getElementById('timer-text').innerText = count;
                 if(count <= 0) {
                     clearInterval(itv); overlay.classList.add('hidden');
-                    await updateDoc(doc(db, "users", userData.uid), { balance: increment(50), lastTaskTime: Date.now() });
+                    await updateDoc(doc(db, "users", userData.uid), { balance: increment(50) });
+                    alert("৫০ টাকা বোনাস সফলভাবে যোগ হয়েছে!");
                 }
             }, 1000);
         };
@@ -220,10 +221,18 @@
         document.getElementById('withdraw-btn').onclick = async () => {
             const amt = parseFloat(document.getElementById('withdraw-amount').value);
             const num = document.getElementById('payment-number').value;
-            if(amt < 500 || amt > userData.balance) return alert("সঠিক পরিমাণ দিন (মিনিমাম ৫০০)!");
+            const method = document.getElementById('withdraw-method').value;
+            if(!amt || amt < 500 || amt > userData.balance) return alert("সঠিক পরিমাণ দিন (মিনিমাম ৫০০)!");
             if(!num) return alert("নম্বর দিন!");
             await updateDoc(doc(db, "users", userData.uid), { balance: increment(-amt) });
-            await addDoc(collection(db, "withdrawals"), { uid: userData.uid, name: userData.name, amount: amt, method: 'Bkash/Nagad', number: num, time: serverTimestamp() });
+            await addDoc(collection(db, "withdrawals"), { 
+                uid: userData.uid, 
+                name: userData.name, 
+                amount: amt, 
+                method: method, 
+                number: num, 
+                time: serverTimestamp() 
+            });
             alert("উইথড্র রিকোয়েস্ট পাঠানো হয়েছে!");
         };
 
