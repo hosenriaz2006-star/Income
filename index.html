@@ -3,241 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taka Income BD</title>
+    <title>Taka Income BD - Telegram</title>
+    
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src='//libtl.com/sdk.js' data-zone='8690632' data-sdk='show_8690632'></script>
-    <script src="https://pl29060371.profitablecpmratenetwork.com/b4/56/77/b45677b6da858a405fe18219565ec10d.js"></script>
-    <script src="https://pl29060362.profitablecpmratenetwork.com/6f/77/34/6f77345e70ab503e89dfa39ef72c9cd1.js"></script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #121212; color: #ffffff; }
-        .dark-bg { background-color: #121212; }
+        body { font-family: 'Inter', sans-serif; background-color: #121212; color: #ffffff; overflow-x: hidden; }
         .card-bg { background-color: #1e1e1e; }
-        .border-accent { border-color: #10b981; }
         .text-accent { color: #10b981; }
-        .btn, .btn-accent, .btn-outline-accent { transition: all 0.2s ease-in-out; }
-        .btn:active, .btn-accent:active, .btn-outline-accent:active { transform: scale(0.95); }
         .btn-accent { background-color: #10b981; color: #121212; font-weight: bold; }
-        .btn-accent:hover { background-color: #059669; }
-        .btn-outline-accent { border: 1px solid #10b981; color: #10b981; }
-        .btn-outline-accent:hover { background-color: #10b981; color: #121212; }
-        .input-field { background-color: #2c2c2c; border: 1px solid #444; }
         .main-page { display: none; }
-        .main-page.active { display: flex; animation: fadeIn 0.5s ease-in-out; }
+        .main-page.active { display: flex; flex-direction: column; min-height: 100vh; }
         .sub-page { display: none; }
         .sub-page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-        .bottom-nav a.active { color: #10b981; }
-        .notification-dot {
-            position: absolute; top: -2px; right: -2px; width: 10px; height: 10px;
-            background-color: #ef4444; border-radius: 50%; border: 2px solid #121212; display: none;
-        }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .popup-anim { animation: popUp 0.3s ease-out; }
-        .refer-box { background: linear-gradient(135deg, #10b981, #059669); }
     </style>
 </head>
-<body class="max-w-md mx-auto min-h-screen">
+<body class="max-w-md mx-auto">
 
-    <div id="loader" class="hidden fixed inset-0 dark-bg bg-opacity-75 flex items-center justify-center z-50">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-accent"></div>
+    <div id="loader" class="fixed inset-0 bg-[#121212] flex flex-col items-center justify-center z-50">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-accent mb-4"></div>
+        <p class="text-accent font-medium">Verifying Telegram Account...</p>
     </div>
 
-    <!-- Welcome Modal -->
-    <div id="welcome-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-[60] hidden p-4">
-        <div class="bg-white text-gray-900 rounded-2xl w-full max-w-sm p-6 relative popup-anim shadow-2xl">
-            <button onclick="closeWelcomeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            <div class="text-center mb-4">
-                <h2 class="text-2xl font-bold text-black flex items-center justify-center gap-2">স্বাগতম! 🔥</h2>
-            </div>
-            <div class="space-y-4 text-sm font-medium leading-relaxed text-center">
-                <p>আসসালামু আলাইকুম, সততার সাথে পেমেন্ট করছি। নিয়ম মেনে কাজ করলে ১০০% পেমেন্ট পাবেন ইনশাআল্লাহ 🔥</p>
-                <div class="space-y-2 text-left bg-gray-50 p-3 rounded-lg border border-gray-200">
-                    <p class="flex items-center gap-2"><span class="text-yellow-500">⚡</span> ওয়েবসাইট ভিজিট: ৫০ টাকা</p>
-                    <p class="flex items-center gap-2"><span class="text-green-600">💸</span> প্রতি রেফারে: ১০০ টাকা</p>
-                    <p class="flex items-center gap-2"><span class="text-yellow-600">💰</span> প্রতি বিজ্ঞাপনে: ৫০ টাকা</p>
-                </div>
-                <div class="border-t border-gray-200 pt-3">
-                    <p class="flex items-center justify-center gap-1 font-bold text-gray-800"><span class="text-red-600 text-lg">📌</span> ১০০% পেমেন্ট গ্যারান্টি</p>
-                </div>
-            </div>
-            <button onclick="closeWelcomeModal()" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors text-lg">বুঝেছি</button>
-        </div>
-    </div>
-
-    <!-- Main App Container -->
-    <div id="app-container" class="min-h-screen flex flex-col main-page">
-        <header class="flex items-center justify-between p-4 sticky top-0 bg-opacity-80 backdrop-blur-md z-10 dark-bg">
+    <div id="app-container" class="main-page">
+        <header class="flex items-center justify-between p-4 sticky top-0 bg-[#121212] z-10">
             <h1 class="text-xl font-bold text-accent">Taka Income BD</h1>
             <div class="flex items-center space-x-4">
-                <div id="notification-bell" class="relative cursor-pointer">
-                    <i data-lucide="bell" class="w-6 h-6"></i>
-                    <div id="notification-dot" class="notification-dot"></div>
-                </div>
+                <i data-lucide="bell" class="w-6 h-6 cursor-pointer" onclick="navigateTo('notifications-page')"></i>
                 <i data-lucide="user" class="w-6 h-6 cursor-pointer" onclick="navigateTo('profile-page')"></i>
             </div>
         </header>
 
-        <main class="flex-grow overflow-auto pb-20">
-            <!-- Home Page -->
-            <div id="home-page" class="p-4 space-y-6 sub-page">
-                <div class="card-bg p-4 rounded-2xl flex items-center justify-between">
+        <main class="flex-grow pb-20">
+            <div id="home-page" class="p-4 space-y-6 sub-page active">
+                <div class="card-bg p-6 rounded-2xl flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-gray-400 text-sm">Your Balance</p>
-                        <p class="text-3xl font-bold"><span id="coin-balance">0</span> ৳</p>
+                        <p class="text-gray-400 text-sm">Welcome, <span id="user-display-name">...</span></p>
+                        <p class="text-3xl font-bold text-accent"><span id="coin-balance">0</span> <span class="text-sm text-white">Coins</span></p>
                     </div>
-                    <button id="home-withdraw-btn" class="bg-white text-black font-semibold px-6 py-2 rounded-xl">Withdraw</button>
+                    <button onclick="navigateTo('wallet-page')" class="bg-white text-black font-bold px-4 py-2 rounded-xl text-sm">Withdraw</button>
                 </div>
-
-                <section>
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <h2 class="text-lg font-semibold">Daily Tasks</h2>
-                            <p class="text-sm text-gray-400">Complete tasks to earn money.</p>
-                        </div>
-                        <p class="text-sm text-gray-400">Done: <span id="ads-left-count">0</span>/<span id="max-tasks">15</span></p>
-                    </div>
-
-                    <div class="space-y-3">
-                        <h3 class="text-xs font-bold text-gray-500 uppercase">Website Visits (30s)</h3>
-                        <div class="card-bg p-3 rounded-xl flex items-center justify-between">
-                            <div class="flex items-center space-x-3"><span class="text-3xl">🌐</span><div><h3 class="font-semibold">Website Visit 1</h3><p class="text-xs text-gray-400">Reward: ৫০ ৳</p></div></div>
-                            <button id="task-btn-1" class="bg-green-600 text-white font-bold px-6 py-2 rounded-xl text-sm" onclick="startWebTask(1)">Visit</button>
-                        </div>
-                        <div class="card-bg p-3 rounded-xl flex items-center justify-between">
-                            <div class="flex items-center space-x-3"><span class="text-3xl">🌐</span><div><h3 class="font-semibold">Website Visit 2</h3><p class="text-xs text-gray-400">Reward: ৫০ ৳</p></div></div>
-                            <button id="task-btn-2" class="bg-green-600 text-white font-bold px-6 py-2 rounded-xl text-sm" onclick="startWebTask(2)">Visit</button>
-                        </div>
-                        <div class="card-bg p-3 rounded-xl flex items-center justify-between">
-                            <div class="flex items-center space-x-3"><span class="text-3xl">🌐</span><div><h3 class="font-semibold">Website Visit 3</h3><p class="text-xs text-gray-400">Reward: ৫০ ৳</p></div></div>
-                            <button id="task-btn-3" class="bg-green-600 text-white font-bold px-6 py-2 rounded-xl text-sm" onclick="startWebTask(3)">Visit</button>
-                        </div>
-
-                        <h3 class="text-xs font-bold text-gray-500 uppercase mt-6">Special Ad</h3>
-                        <div class="bg-gradient-to-r from-purple-600 to-pink-600 p-5 rounded-2xl flex items-center justify-between text-white">
-                            <div class="flex items-center space-x-3">
-                                <span class="text-4xl">🎁</span>
-                                <div>
-                                    <h3 class="font-bold">Watch Ad & Earn</h3>
-                                    <p class="text-sm">৫০ টাকা প্রতি অ্যাড</p>
-                                </div>
+                
+                <section class="space-y-4">
+                    <h2 class="text-lg font-semibold flex items-center gap-2"><i data-lucide="zap" class="text-yellow-500"></i> Daily Tasks</h2>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="card-bg p-4 rounded-xl flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-green-500/10 p-2 rounded-lg text-green-500"><i data-lucide="globe"></i></div>
+                                <div><h3 class="font-medium">Visit Website</h3><p class="text-xs text-gray-500">+50 Coins</p></div>
                             </div>
-                            <button onclick="claimSpecialAd()" class="bg-white text-purple-700 font-bold px-8 py-3 rounded-xl text-sm">Claim Now</button>
+                            <button onclick="startWebTask(1)" class="btn-accent px-5 py-2 rounded-lg text-sm">Start</button>
+                        </div>
+                        <div class="card-bg p-4 rounded-xl flex items-center justify-between border border-orange-500/30">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-orange-500/10 p-2 rounded-lg text-orange-500"><i data-lucide="play-circle"></i></div>
+                                <div><h3 class="font-medium">Watch Video Ad</h3><p class="text-xs text-gray-500">+50 Coins</p></div>
+                            </div>
+                            <button onclick="claimReward('interstitial')" class="btn-accent px-5 py-2 rounded-lg text-sm">Watch</button>
                         </div>
                     </div>
                 </section>
             </div>
 
-            <!-- Wallet Page -->
-            <div id="wallet-page" class="p-4 space-y-6 sub-page">
-                <h2 class="text-xl font-bold text-center">My Wallet</h2>
-                <div class="card-bg p-6 rounded-2xl">
-                    <h3 class="font-semibold mb-4">Withdraw Earnings</h3>
-                    <p class="text-sm text-gray-400">Current Balance: <span class="font-bold text-accent"><span id="wallet-coin-balance">0</span> ৳</span></p>
-                    <p class="text-sm text-gray-400 mb-4">Minimum Withdrawal: <span id="min-withdrawal-info">1000</span> ৳</p>
-                    <input id="withdraw-amount" type="number" placeholder="Enter amount" class="w-full p-4 rounded-xl input-field mb-3">
-                    <select id="withdraw-method" class="w-full p-4 rounded-xl input-field mb-3"></select>
-                    <div id="payment-details-container" class="mb-3"></div>
-                    <button id="withdraw-btn" class="w-full p-4 rounded-xl btn-accent font-bold">Request Withdrawal</button>
-                </div>
-                <div class="mt-6">
-                    <h3 class="text-lg font-semibold mb-3">Withdrawal History</h3>
-                    <div id="withdrawal-history-list" class="space-y-3"></div>
-                </div>
-            </div>
-
-            <!-- Refer Page -->
             <div id="refer-page" class="p-4 space-y-6 sub-page">
-                <h2 class="text-xl font-bold text-center mb-2">Refer & Earn 💰</h2>
-                <p class="text-center text-gray-400 text-sm mb-6">বন্ধুদের রেফার করে প্রতি সফল রেফারে ১০০ টাকা পান।<br><span class="text-amber-400">Withdraw করতে ন্যূনতম ৫টি রেফার করতে হবে।</span></p>
-
-                <div class="refer-box p-6 rounded-2xl text-center text-white">
-                    <span class="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-2xl text-4xl mb-4">👥</span>
-                    <p class="text-sm opacity-90 mb-2">আপনার রেফারেল কোড</p>
-                    <div class="bg-white/10 backdrop-blur p-4 rounded-2xl flex items-center justify-center mb-5 border border-white/30">
-                        <span id="referral-code" class="text-3xl font-bold tracking-widest">LOADING...</span>
-                        <button id="copy-code-btn" class="ml-4 p-2 hover:bg-white/20 rounded-xl">
-                            <i data-lucide="copy" class="w-7 h-7"></i>
-                        </button>
+                <h2 class="text-xl font-bold text-center">Refer & Earn</h2>
+                <div class="card-bg p-8 rounded-2xl text-center border-2 border-dashed border-accent/30">
+                    <p class="text-gray-400 mb-4 text-sm">Invite friends and earn 200 coins per referral!</p>
+                    <div class="bg-black/40 p-4 rounded-xl mb-6">
+                        <span id="referral-code" class="text-2xl font-bold tracking-widest text-accent">LOADING...</span>
                     </div>
-                    <button onclick="shareReferralLink()" class="w-full bg-white text-emerald-700 font-bold py-4 rounded-2xl flex items-center justify-center gap-2">
-                        <i data-lucide="share-2" class="w-6 h-6"></i> বন্ধুদের সাথে শেয়ার করুন
+                    <button id="share-btn" class="w-full btn-accent py-4 rounded-xl flex items-center justify-center gap-2">
+                        <i data-lucide="share-2" class="w-5 h-5"></i> Invite Friends
                     </button>
                 </div>
-
-                <div class="card-bg p-6 rounded-2xl mt-8">
-                    <h3 class="font-semibold mb-4 text-center">Have a Referral Code?</h3>
-                    <input id="enter-referral-code" type="text" placeholder="Enter code" class="w-full p-4 rounded-2xl input-field mb-4">
-                    <button id="apply-referral-btn" class="w-full p-4 rounded-2xl btn-outline-accent font-bold">Apply Code</button>
-                </div>
-
-                <div class="bg-yellow-900/30 border border-yellow-500/30 p-5 rounded-2xl mt-6">
-                    <p class="font-medium text-amber-400 mb-2">নিয়ম:</p>
-                    <ul class="list-disc pl-5 space-y-1 text-sm text-gray-300">
-                        <li>প্রতি সফল রেফারে <span class="text-white font-bold">১০০ টাকা</span></li>
-                        <li>Withdraw করতে কমপক্ষে <span class="text-white font-bold">৫টি রেফার</span> দরকার</li>
-                    </ul>
-                </div>
             </div>
 
-            <!-- Profile Page -->
-            <div id="profile-page" class="p-4 space-y-6 sub-page">
-                <h2 class="text-xl font-bold text-center">Profile</h2>
-                <div class="flex flex-col items-center">
-                    <div class="w-24 h-24 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center text-5xl mb-4 shadow-lg" id="profile-avatar">👤</div>
-                    <h2 id="profile-name" class="text-2xl font-bold">User</h2>
-                    <p id="profile-username" class="text-gray-400">@username</p>
-                </div>
-
-                <div class="space-y-3">
-                    <a id="link-telegram-btn" href="#" target="_blank" class="card-bg p-4 rounded-2xl flex items-center justify-between hover:bg-[#252525]">
-                        <div class="flex items-center gap-3"><div class="p-2 bg-blue-500/10 rounded-lg"><i data-lucide="send" class="w-5 h-5 text-blue-400"></i></div><span>Join Telegram</span></div>
-                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                    </a>
-                    <a id="link-facebook-btn" href="#" target="_blank" class="card-bg p-4 rounded-2xl flex items-center justify-between hover:bg-[#252525]">
-                        <div class="flex items-center gap-3"><div class="p-2 bg-blue-700/10 rounded-lg"><i data-lucide="facebook" class="w-5 h-5 text-blue-600"></i></div><span>Join Facebook</span></div>
-                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                    </a>
-                    <a id="link-admin-btn" href="#" target="_blank" class="card-bg p-4 rounded-2xl flex items-center justify-between hover:bg-[#252525]">
-                        <div class="flex items-center gap-3"><div class="p-2 bg-green-500/10 rounded-lg"><i data-lucide="message-circle" class="w-5 h-5 text-green-400"></i></div><span>Contact Admin</span></div>
-                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                    </a>
-                </div>
-
-                <button id="logout-btn" class="w-full mt-8 p-4 rounded-2xl bg-red-600/20 text-red-500 border border-red-600/50 font-bold">Logout</button>
-            </div>
-
-            <!-- Notifications Page -->
-            <div id="notifications-page" class="p-4 space-y-4 sub-page">
-                <h2 class="text-xl font-bold text-center">Notifications</h2>
-                <div id="notifications-list" class="space-y-3"></div>
+            <div id="wallet-page" class="p-4 sub-page text-center"><p>Wallet Content (Original)</p></div>
+            <div id="profile-page" class="p-4 sub-page text-center">
+                 <h2 id="prof-name" class="text-xl font-bold"></h2>
+                 <p id="prof-id" class="text-gray-500"></p>
+                 <button onclick="logout()" class="mt-4 text-red-500">Exit App</button>
             </div>
         </main>
 
-        <!-- Bottom Navigation -->
-        <nav class="bottom-nav fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md grid grid-cols-4 bg-[#1e1e1e] border-t border-gray-800 py-2 text-center">
-            <a href="#" class="nav-link flex flex-col items-center py-1" data-page="home-page"><i data-lucide="home" class="w-6 h-6 mx-auto"></i><span class="text-xs mt-1">Home</span></a>
-            <a href="#" class="nav-link flex flex-col items-center py-1" data-page="wallet-page"><i data-lucide="wallet" class="w-6 h-6 mx-auto"></i><span class="text-xs mt-1">Wallet</span></a>
-            <a href="#" class="nav-link flex flex-col items-center py-1" data-page="refer-page"><i data-lucide="users" class="w-6 h-6 mx-auto"></i><span class="text-xs mt-1">Refer</span></a>
-            <a href="#" class="nav-link flex flex-col items-center py-1" data-page="profile-page"><i data-lucide="user" class="w-6 h-6 mx-auto"></i><span class="text-xs mt-1">Profile</span></a>
+        <nav class="fixed bottom-0 left-0 right-0 grid grid-cols-4 items-center text-center py-3 card-bg border-t border-white/5">
+            <a href="#" onclick="navigateTo('home-page')" class="nav-link text-accent"><i data-lucide="home" class="mx-auto mb-1"></i><span class="text-[10px]">Home</span></a>
+            <a href="#" onclick="navigateTo('wallet-page')" class="nav-link"><i data-lucide="wallet" class="mx-auto mb-1"></i><span class="text-[10px]">Wallet</span></a>
+            <a href="#" onclick="navigateTo('refer-page')" class="nav-link"><i data-lucide="users" class="mx-auto mb-1"></i><span class="text-[10px]">Refer</span></a>
+            <a href="#" onclick="navigateTo('profile-page')" class="nav-link"><i data-lucide="user" class="mx-auto mb-1"></i><span class="text-[10px]">Profile</span></a>
         </nav>
     </div>
 
-    <!-- Custom Alert -->
-    <div id="custom-alert" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
-        <div class="bg-gray-800 rounded-2xl p-6 w-full max-w-sm text-center">
-            <p id="alert-message" class="mb-6 text-lg"></p>
-            <button id="alert-ok-btn" class="btn-accent px-12 py-3 rounded-2xl w-full font-bold">OK</button>
-        </div>
-    </div>
-
     <script type="module">
-        // Firebase Config
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyDpH_zn1KQPcIsPojC02UzXLdc017e-Unw",
             authDomain: "bdincomezone-767b4.firebaseapp.com",
@@ -248,285 +113,86 @@
             appId: "1:1026541741286:web:735f4f134ab159b5d28727"
         };
 
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signInAnonymously, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
         const db = getFirestore(app);
+        const tg = window.Telegram.WebApp;
 
-        let currentUser = null;
         let userData = null;
-        let appConfig = {};
-        let telegramUser = null;
+        const BOT_USERNAME = "YourBotUsername"; // আপনার টেলিগ্রাম বটের ইউজারনেম এখানে দিন
 
-        const BOT_USERNAME = "bdfreeincometkBot";
+        async function initApp() {
+            tg.expand();
+            tg.ready();
 
-        // Element selectors
-        const loader = document.getElementById('loader');
-        const coinBalanceEl = document.getElementById('coin-balance');
-        const walletCoinBalanceEl = document.getElementById('wallet-coin-balance');
-        const profileNameEl = document.getElementById('profile-name');
-        const profileUsernameEl = document.getElementById('profile-username');
-        const referralCodeEl = document.getElementById('referral-code');
-        const minWithdrawalInfoEl = document.getElementById('min-withdrawal-info');
-        const adsLeftCountEl = document.getElementById('ads-left-count');
-        const withdrawMethodSelect = document.getElementById('withdraw-method');
-        const paymentDetailsContainer = document.getElementById('payment-details-container');
-        const notificationDot = document.getElementById('notification-dot');
+            const user = tg.initDataUnsafe?.user;
 
-        window.onload = async () => {
-            lucide.createIcons();
-            setupEventListeners();
-
-            if (window.Telegram?.WebApp) {
-                Telegram.WebApp.ready();
-                Telegram.WebApp.expand();
-                telegramUser = Telegram.WebApp.initDataUnsafe?.user;
-            }
-
-            openWelcomeModal();
-            loader.style.display = 'flex';
-
-            await handleTelegramAutoLogin();
-        };
-
-        async function handleTelegramAutoLogin() {
-            if (!telegramUser || !telegramUser.id) {
-                showAlert("Please open this app from Telegram Bot.");
-                loader.style.display = 'none';
+            if (!user) {
+                document.body.innerHTML = "<div class='p-10 text-center text-red-500'>Please open this app from Telegram!</div>";
                 return;
             }
 
-            try {
-                const userCredential = await signInAnonymously(auth);
-                currentUser = userCredential.user;
+            const userRef = doc(db, "users", user.id.toString());
+            const userSnap = await getDoc(userRef);
 
-                const userRef = doc(db, "users", currentUser.uid);
-                const userSnap = await getDoc(userRef);
-
-                if (!userSnap.exists()) {
-                    const ownReferralCode = Math.random().toString(36).substring(2, 8).toUpperCase();
-                    const defaultData = {
-                        uid: currentUser.uid,
-                        telegramId: telegramUser.id,
-                        name: telegramUser.first_name + (telegramUser.last_name ? " " + telegramUser.last_name : ""),
-                        username: telegramUser.username || "",
-                        balance: 50,
-                        referralCode: ownReferralCode,
-                        referredBy: null,
-                        referralCount: 0,
-                        dailyAdCount: 0,
-                        lastAdWatchDate: new Date().toISOString().split('T')[0],
-                        createdAt: serverTimestamp(),
-                        isBlocked: false
-                    };
-                    await setDoc(userRef, defaultData);
-                    userData = defaultData;
-                } else {
-                    userData = userSnap.data();
+            if (userSnap.exists()) {
+                userData = userSnap.data();
+            } else {
+                // New User Registration
+                userData = {
+                    uid: user.id.toString(),
+                    name: user.first_name + (user.last_name ? " " + user.last_name : ""),
+                    username: user.username || "anonymous",
+                    balance: 50,
+                    referralCode: user.id.toString(),
+                    createdAt: serverTimestamp(),
+                    dailyAdCount: 0
+                };
+                await setDoc(userRef, userData);
+                
+                // Check if user came via a referral link
+                const startParam = tg.initDataUnsafe.start_param;
+                if(startParam && startParam !== user.id.toString()) {
+                    processReferral(startParam);
                 }
-
-                // Auto apply referral from start parameter
-                const startParam = Telegram.WebApp.initDataUnsafe?.start_param;
-                if (startParam && !userData.referredBy) {
-                    await applyReferralBonus(startParam, false);
-                }
-
-                await fetchAppConfig();
-                await checkNewNotifications();
-                updateUI();
-
-                showMainPage('app-container');
-                navigateTo('home-page');
-            } catch (e) {
-                console.error(e);
-                showAlert("Failed to login. Try again.");
-            } finally {
-                loader.style.display = 'none';
             }
-        }
 
-        async function fetchAppConfig() {
-            const configRef = doc(db, "config", "main");
-            const snap = await getDoc(configRef);
-            appConfig = snap.exists() ? snap.data() : {
-                minWithdrawal: 1000,
-                dailyAdLimit: 15,
-                linkWeb1: "https://google.com",
-                linkWeb2: "https://wikipedia.org",
-                linkWeb3: "https://yahoo.com"
-            };
+            updateUI();
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('app-container').classList.add('active');
+            lucide.createIcons();
         }
 
         function updateUI() {
-            if (!userData) return;
-            const balance = userData.balance || 0;
-            coinBalanceEl.textContent = balance;
-            walletCoinBalanceEl.textContent = balance;
-            profileNameEl.textContent = userData.name || telegramUser?.first_name || "User";
-            profileUsernameEl.textContent = userData.username ? "@" + userData.username : "";
-            referralCodeEl.textContent = userData.referralCode || "N/A";
-            minWithdrawalInfoEl.textContent = appConfig.minWithdrawal || 1000;
-            adsLeftCountEl.textContent = userData.dailyAdCount || 0;
-
-            // Payment methods
-            withdrawMethodSelect.innerHTML = '';
-            ["Bkash", "Nagad", "Rocket"].forEach(m => {
-                const opt = document.createElement('option');
-                opt.value = m; opt.textContent = m;
-                withdrawMethodSelect.appendChild(opt);
-            });
-            updateDynamicPaymentFields();
-
-            document.getElementById('max-tasks').textContent = appConfig.dailyAdLimit || 15;
+            document.getElementById('user-display-name').textContent = userData.name;
+            document.getElementById('coin-balance').textContent = userData.balance;
+            document.getElementById('referral-code').textContent = userData.uid;
+            document.getElementById('prof-name').textContent = userData.name;
+            document.getElementById('prof-id').textContent = "ID: " + userData.uid;
         }
 
-        function updateDynamicPaymentFields() {
-            const method = withdrawMethodSelect.value || "Bkash";
-            paymentDetailsContainer.innerHTML = `
-                <input id="payment-detail-input" type="text" placeholder="Enter your ${method} Number" 
-                       class="w-full p-4 rounded-xl input-field">
-            `;
-        }
-
-        function showMainPage(page) {
-            document.querySelectorAll('.main-page').forEach(p => p.classList.remove('active'));
-            document.getElementById(page).classList.add('active');
-        }
-
-        function navigateTo(pageId) {
+        window.navigateTo = function(pageId) {
             document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
-            document.querySelectorAll('.nav-link').forEach(l => {
-                l.classList.toggle('active', l.dataset.page === pageId);
-            });
-            if (pageId === 'wallet-page') loadWithdrawalHistory();
-            if (pageId === 'notifications-page') loadNotifications();
         }
 
-        function setupEventListeners() {
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', e => {
-                    e.preventDefault();
-                    navigateTo(link.dataset.page);
-                });
-            });
-
-            document.getElementById('notification-bell').addEventListener('click', () => navigateTo('notifications-page'));
-            document.getElementById('copy-code-btn').addEventListener('click', copyReferralCode);
-            document.getElementById('apply-referral-btn').addEventListener('click', handleApplyReferralCode);
-            withdrawMethodSelect.addEventListener('change', updateDynamicPaymentFields);
-            document.getElementById('withdraw-btn').addEventListener('click', handleWithdrawal);
-            document.getElementById('home-withdraw-btn').addEventListener('click', () => navigateTo('wallet-page'));
-            document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+        document.getElementById('share-btn').onclick = function() {
+            const inviteLink = `https://t.me/${BOT_USERNAME}?start=${userData.uid}`;
+            const text = `🔥 সেরা ইনকাম অ্যাপ! জয়েন করলেই ৫০ কয়েন ফ্রি। লিঙ্ক: ${inviteLink}`;
+            tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(inviteLink)}&text=${encodeURIComponent(text)}`);
         }
 
-        async function applyReferralBonus(referrerCode, showMsg = true) {
-            // Same logic as your original
-            const q = query(collection(db, "users"), where("referralCode", "==", referrerCode));
-            const snap = await getDocs(q);
-            if (!snap.empty) {
-                const referrerDoc = snap.docs[0];
-                await updateDoc(doc(db, "users", referrerDoc.id), {
-                    balance: (referrerDoc.data().balance || 0) + 100,
-                    referralCount: (referrerDoc.data().referralCount || 0) + 1
-                });
-                await updateDoc(doc(db, "users", currentUser.uid), {
-                    balance: (userData.balance || 0) + 100,
-                    referredBy: referrerCode
-                });
-                userData.balance += 100;
-                userData.referredBy = referrerCode;
-                updateUI();
-                if (showMsg) showAlert("✅ Referral code applied! You got ১০০ ৳");
-            } else if (showMsg) {
-                showAlert("❌ Invalid referral code");
+        async function processReferral(referrerId) {
+            const refDoc = doc(db, "users", referrerId);
+            const refSnap = await getDoc(refDoc);
+            if(refSnap.exists()) {
+                const refData = refSnap.data();
+                await updateDoc(refDoc, { balance: (refData.balance || 0) + 200 });
+                // Note: Logic for new user bonus is already in the initApp
             }
         }
 
-        async function handleApplyReferralCode() {
-            if (userData.referredBy) return showAlert("You already used a referral code.");
-            const code = document.getElementById('enter-referral-code').value.trim().toUpperCase();
-            if (!code) return showAlert("Enter a code");
-            await applyReferralBonus(code, true);
-        }
-
-        async function handleWithdrawal() {
-            const amount = parseInt(document.getElementById('withdraw-amount').value);
-            const method = withdrawMethodSelect.value;
-            const paymentDetail = document.getElementById('payment-detail-input')?.value.trim();
-
-            if (!amount || amount < (appConfig.minWithdrawal || 1000)) return showAlert(`Minimum withdrawal is ${appConfig.minWithdrawal || 1000} ৳`);
-            if (amount > (userData.balance || 0)) return showAlert("Insufficient balance");
-            if ((userData.referralCount || 0) < 5) return showAlert("Withdraw করতে কমপক্ষে ৫টি রেফার দরকার");
-            if (!paymentDetail) return showAlert("Enter payment number");
-
-            loader.style.display = 'flex';
-            try {
-                await updateDoc(doc(db, "users", currentUser.uid), { balance: (userData.balance || 0) - amount });
-                userData.balance -= amount;
-                await addDoc(collection(db, "withdrawals"), {
-                    userId: currentUser.uid,
-                    amount,
-                    method,
-                    paymentDetail,
-                    status: "pending",
-                    requestedAt: serverTimestamp()
-                });
-                showAlert("✅ Withdrawal request submitted!");
-                updateUI();
-                loadWithdrawalHistory();
-            } catch (e) {
-                showAlert("Error: " + e.message);
-            } finally {
-                loader.style.display = 'none';
-            }
-        }
-
-        window.startWebTask = async function(taskId) {
-            // Your original 30s timer logic
-            // (Copy the full function from your first code if you want exact behavior)
-            showAlert("Task started - Open link & wait 30 seconds");
-            // Implement full timer + reward as in your original code
-        };
-
-        window.claimSpecialAd = async function() {
-            // Your original ad claim logic
-            showAlert("Ad opened. Reward will be added after watching.");
-            // Implement full reward logic
-        };
-
-        window.shareReferralLink = function() {
-            if (!userData?.referralCode) return;
-            const link = `https://t.me/\( {BOT_USERNAME}?start= \){userData.referralCode}`;
-            const text = `Join Taka Income BD and earn daily!\nMy Referral Code: \( {userData.referralCode}\n \){link}`;
-            window.open(`https://t.me/share/url?url=\( {encodeURIComponent(link)}&text= \){encodeURIComponent(text)}`, '_blank');
-        };
-
-        function copyReferralCode() {
-            navigator.clipboard.writeText(referralCodeEl.textContent).then(() => showAlert("✅ Code copied!"));
-        }
-
-        function showAlert(msg) {
-            document.getElementById('alert-message').innerHTML = msg;
-            document.getElementById('custom-alert').classList.remove('hidden');
-            document.getElementById('alert-ok-btn').onclick = () => document.getElementById('custom-alert').classList.add('hidden');
-        }
-        window.showAlert = showAlert;
-
-        function closeWelcomeModal() {
-            document.getElementById('welcome-modal').classList.add('hidden');
-        }
-        window.closeWelcomeModal = closeWelcomeModal;
-
-        // Placeholder functions (add your full original logic here for tasks, notifications, history, etc.)
-        async function loadWithdrawalHistory() { /* implement */ }
-        async function loadNotifications() { /* implement */ }
-        async function checkNewNotifications() { /* implement */ }
-        async function updateBalance() { /* implement */ }
-
+        // Initialize
+        initApp();
     </script>
 </body>
 </html>
