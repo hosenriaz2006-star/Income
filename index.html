@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TK Income BD - Earn Money</title>
+    <title>TK Income BD</title>
     
     <script src="https://pl29060362.profitablecpmratenetwork.com/6f/77/34/6f77345e70ab503e89dfa39ef72c9cd1.js"></script>
-    
     <script src="https://pl29060371.profitablecpmratenetwork.com/b4/56/77/b45677b6da858a405fe18219565ec10d.js"></script>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -15,113 +14,100 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap');
         body { font-family: 'Hind Siliguri', sans-serif; background-color: #0a0a0a; color: #ffffff; }
-        .card-bg { background: linear-gradient(145deg, #161616, #1a1a1a); border: 1px solid rgba(255,255,255,0.05); }
+        .card-bg { background: linear-gradient(145deg, #161616, #1f1f1f); border: 1px solid rgba(255,255,255,0.05); }
         .btn-emerald { background: linear-gradient(to right, #10b981, #059669); color: white; font-weight: bold; }
         .sub-page { display: none; }
         .sub-page.active { display: block; animation: slideUp 0.3s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .locked-btn { background: #262626 !important; color: #525252 !important; pointer-events: none; }
-        .nav-active { color: #10b981 !important; transform: scale(1.1); }
+        .locked-btn { background: #262626 !important; color: #6b7280 !important; pointer-events: none; }
+        .nav-active { color: #10b981 !important; transform: translateY(-5px); }
     </style>
 </head>
 <body class="max-w-md mx-auto select-none">
 
     <div id="loader" class="fixed inset-0 bg-[#0a0a0a] flex flex-col items-center justify-center z-[100]">
-        <div class="w-12 h-12 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin"></div>
-        <p class="mt-4 text-emerald-500 font-bold animate-pulse">লোড হচ্ছে...</p>
+        <div class="w-10 h-10 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin"></div>
     </div>
 
     <div id="app-container" class="min-h-screen flex flex-col opacity-0 transition-opacity duration-500">
-        <header class="p-4 flex justify-between items-center sticky top-0 bg-[#0a0a0a]/80 backdrop-blur-lg z-50 border-b border-white/5">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center font-black text-black">TK</div>
-                <h1 class="font-bold text-lg tracking-tight">Income BD</h1>
-            </div>
-            <div class="flex items-center gap-2 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
-                <i data-lucide="wallet" class="w-4 text-emerald-500"></i>
+        <header class="p-4 flex justify-between items-center sticky top-0 bg-[#0a0a0a]/90 backdrop-blur-md z-50 border-b border-white/5">
+            <h1 class="font-black text-xl text-emerald-500">TK Income</h1>
+            <div class="bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20 flex items-center gap-2">
+                <i data-lucide="wallet" class="w-4 text-emerald-400"></i>
                 <span id="header-balance" class="text-emerald-400 font-bold text-sm">৳ 0.00</span>
             </div>
         </header>
 
         <main class="flex-grow p-4 pb-28">
             <div id="home-page" class="sub-page active space-y-6">
-                <div class="card-bg p-8 rounded-[2.5rem] text-center shadow-xl">
-                    <p class="text-xs text-gray-400 uppercase tracking-widest">আপনার ব্যালেন্স</p>
-                    <h2 class="text-5xl font-black text-white mt-2">৳ <span id="tk-balance">0.00</span></h2>
+                <div id="broadcast-box" class="hidden bg-blue-600/10 border border-blue-500/20 p-4 rounded-2xl flex items-start gap-3">
+                    <i data-lucide="megaphone" class="w-5 text-blue-500 mt-1"></i>
+                    <p id="broadcast-text" class="text-sm text-blue-100 font-medium"></p>
+                </div>
+
+                <div class="card-bg p-10 rounded-[2.5rem] text-center shadow-2xl relative overflow-hidden">
+                    <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">Current Balance</p>
+                    <h2 class="text-5xl font-black text-white mt-2 tracking-tighter">৳ <span id="tk-balance">0.00</span></h2>
+                </div>
+
+                <div id="official-box" class="card-bg p-6 rounded-3xl border border-emerald-500/20 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-bold text-sm">Official Group Join</h4>
+                        <p class="text-[10px] text-emerald-500">Reward: ৳ ৫০.০০</p>
+                    </div>
+                    <button onclick="joinOfficial()" class="btn-emerald px-4 py-2 rounded-xl text-xs">Join Now</button>
                 </div>
 
                 <div class="space-y-4">
-                    <h3 class="font-bold text-lg flex items-center gap-2"><i data-lucide="zap" class="text-emerald-500 w-5"></i> ডেইলি ইনকাম (৩ ঘণ্টা পর পর)</h3>
+                    <h3 class="font-bold flex items-center gap-2 text-gray-300"><i data-lucide="zap" class="w-5 text-yellow-500"></i> ডেইলি টাস্ক (২ মিনিট বিরতি)</h3>
                     <div id="task-list" class="space-y-3"></div>
                 </div>
             </div>
 
             <div id="wallet-page" class="sub-page space-y-5">
-                <div class="text-center">
-                    <h2 class="text-2xl font-bold">টাকা উত্তোলন</h2>
-                </div>
-                <div class="card-bg p-6 rounded-3xl space-y-4">
-                    <div class="bg-red-500/10 p-3 rounded-xl border border-red-500/20 text-center">
-                        <p class="text-[11px] text-red-400 font-bold">শর্ত: ৫টি রেফার এবং ৫০০ টাকা থাকতে হবে।</p>
-                    </div>
+                <div class="card-bg p-8 rounded-[2.5rem] space-y-5 text-center">
+                    <h2 class="text-2xl font-bold">উইথড্র</h2>
                     <input id="withdraw-amount" type="number" placeholder="৳ পরিমাণ" class="w-full p-4 rounded-2xl bg-black/50 border border-white/5 outline-none focus:border-emerald-500">
-                    <select id="withdraw-method" class="w-full p-4 rounded-2xl bg-black/50 border border-white/5 outline-none">
-                        <option value="Bkash">বিকাশ (Personal)</option>
-                        <option value="Nagad">নগদ (Personal)</option>
-                    </select>
-                    <input id="payment-number" type="number" placeholder="নম্বর দিন" class="w-full p-4 rounded-2xl bg-black/50 border border-white/5 outline-none">
-                    <button id="withdraw-btn" class="w-full py-4 rounded-2xl btn-emerald shadow-lg mt-2">রিকোয়েস্ট পাঠান</button>
+                    <input id="payment-number" type="number" placeholder="বিকাশ/নগদ নম্বর" class="w-full p-4 rounded-2xl bg-black/50 border border-white/5 outline-none focus:border-emerald-500">
+                    <button id="withdraw-btn" class="w-full py-4 rounded-2xl btn-emerald">রিকোয়েস্ট পাঠান</button>
                 </div>
             </div>
 
             <div id="profile-page" class="sub-page space-y-6">
-                <div id="official-task-box" class="card-bg p-8 rounded-[2.5rem] text-center border-emerald-500/20 border">
-                    <h3 class="text-xl font-bold">অফিসিয়াল চ্যানেল</h3>
-                    <p class="text-xs text-gray-400 mt-2">চ্যানেলে জয়েন করলে ৫০ টাকা বোনাস পাবেন।</p>
-                    <div id="channel-action" class="mt-6">
-                        <button onclick="doOfficialTask()" class="btn-emerald w-full py-4 rounded-2xl text-sm shadow-xl">জয়েন করুন এবং ৫০৳ নিন</button>
-                    </div>
-                </div>
-                <div class="card-bg p-5 rounded-3xl text-center">
-                    <p class="text-[10px] text-gray-500 uppercase">মোট রেফার</p>
-                    <p id="total-ref" class="text-2xl font-black text-emerald-400">0</p>
-                </div>
-            </div>
-
-            <div id="refer-page" class="sub-page space-y-6">
                 <div class="card-bg p-8 rounded-[2.5rem] text-center">
-                    <h2 class="text-3xl font-black text-white">রেফার করে আয়</h2>
-                    <p class="text-emerald-400 font-bold text-lg mt-1">প্রতিটি রেফারে ১০০.০০ টাকা!</p>
-                    <button id="share-btn" class="w-full btn-emerald py-4 rounded-2xl mt-8 flex items-center justify-center gap-3 shadow-xl">
-                        <i data-lucide="copy" class="w-5"></i> লিঙ্ক কপি করুন
-                    </button>
+                    <div class="w-20 h-20 bg-emerald-500/10 rounded-full mx-auto flex items-center justify-center mb-4"><i data-lucide="user" class="w-10 text-emerald-500"></i></div>
+                    <h2 id="user-name" class="text-xl font-bold">User Name</h2>
+                    <p class="text-gray-500 text-xs mt-1">ID: <span id="user-id">0000</span></p>
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
+                            <p class="text-[10px] text-gray-500 uppercase">Refer</p>
+                            <p id="total-ref" class="text-lg font-bold">0</p>
+                        </div>
+                        <div onclick="contactAdmin()" class="bg-emerald-500/10 p-4 rounded-2xl border border-emerald-500/20 cursor-pointer">
+                            <p class="text-[10px] text-emerald-500 uppercase">Support</p>
+                            <p class="text-sm font-bold">Contact Admin</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
 
-        <nav class="fixed bottom-0 left-0 right-0 bg-[#0a0a0a]/90 backdrop-blur-xl border-t border-white/5 px-6 py-4 flex justify-between items-center z-[90]">
-            <button onclick="navigateTo('home-page', this)" class="nav-item nav-active"><i data-lucide="home"></i></button>
-            <button onclick="navigateTo('wallet-page', this)" class="nav-item text-gray-500"><i data-lucide="wallet"></i></button>
-            <button onclick="navigateTo('refer-page', this)" class="nav-item text-gray-500"><i data-lucide="share-2"></i></button>
-            <button onclick="navigateTo('profile-page', this)" class="nav-item text-gray-500"><i data-lucide="user"></i></button>
+        <nav class="fixed bottom-0 left-0 right-0 bg-[#0a0a0a] border-t border-white/5 px-10 py-5 flex justify-between items-center z-[90]">
+            <button onclick="navigateTo('home-page', this)" class="nav-item nav-active transition-all"><i data-lucide="home"></i></button>
+            <button onclick="navigateTo('wallet-page', this)" class="nav-item text-gray-600 transition-all"><i data-lucide="wallet"></i></button>
+            <button onclick="navigateTo('profile-page', this)" class="nav-item text-gray-600 transition-all"><i data-lucide="user"></i></button>
         </nav>
     </div>
 
-    <div id="timer-overlay" class="fixed inset-0 bg-black/95 z-[200] hidden flex flex-col items-center justify-center p-8">
-        <div class="relative w-40 h-40 flex items-center justify-center">
-            <svg class="w-full h-full transform -rotate-90">
-                <circle cx="80" cy="80" r="75" stroke="currentColor" stroke-width="4" fill="transparent" class="text-emerald-500/10"></circle>
-                <circle id="timer-circle" cx="80" cy="80" r="75" stroke="currentColor" stroke-width="8" fill="transparent" stroke-dasharray="471" stroke-dashoffset="0" class="text-emerald-500 transition-all duration-1000"></circle>
-            </svg>
-            <span id="timer-text" class="absolute text-4xl font-black">30</span>
-        </div>
-        <h3 class="text-xl font-bold mt-10">বিজ্ঞাপন দেখা হচ্ছে...</h3>
-        <p class="text-gray-400 text-sm mt-2 text-center">৩০ সেকেন্ড অপেক্ষা করুন। ব্যাক করবেন না।</p>
+    <div id="timer-overlay" class="fixed inset-0 bg-black/98 z-[200] hidden flex flex-col items-center justify-center p-8 text-center">
+        <div class="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mb-6"></div>
+        <h3 id="timer-text" class="text-4xl font-black">30</h3>
+        <p class="text-gray-500 mt-2">অপেক্ষা করুন...</p>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, serverTimestamp, increment, runTransaction } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc, setDoc, increment, addDoc, collection, serverTimestamp, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDpH_zn1KQPcIsPojC02UzXLdc017e-Unw",
@@ -139,122 +125,106 @@
         let config = {};
 
         async function init() {
-            tg.expand();
             const user = tg.initDataUnsafe?.user;
             if(!user) return;
             const uid = user.id.toString();
-            const userRef = doc(db, "users", uid);
+            
+            // Realtime Config & Broadcast
+            onSnapshot(doc(db, "config", "main"), (snap) => {
+                config = snap.data() || {};
+                const bBox = document.getElementById('broadcast-box');
+                if(config.announcement) {
+                    bBox.classList.remove('hidden');
+                    document.getElementById('broadcast-text').innerText = config.announcement;
+                } else {
+                    bBox.classList.add('hidden');
+                }
+                renderTasks();
+            });
 
-            const confSnap = await getDoc(doc(db, "config", "main"));
-            config = confSnap.data() || {};
-
-            const userSnap = await getDoc(userRef);
-            if(userSnap.exists()) {
-                userData = userSnap.data();
-            } else {
-                const urlParams = new URLSearchParams(window.location.search);
-                const startParam = tg.initDataUnsafe.start_param || urlParams.get('tgWebAppStartParam');
-                userData = { uid, name: user.first_name, balance: 50, totalRefer: 0, lastTaskTime: 0, officialDone: false };
-                await runTransaction(db, async (t) => {
-                    if (startParam && startParam !== uid) {
-                        const refDoc = doc(db, "users", startParam);
-                        const refSnap = await t.get(refDoc);
-                        if (refSnap.exists()) t.update(refDoc, { balance: increment(100), totalRefer: increment(1) });
-                    }
-                    t.set(userRef, userData);
-                });
-            }
-            updateUI(); renderTasks(); checkOfficial();
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('app-container').style.opacity = '1';
+            // Realtime User Data
+            onSnapshot(doc(db, "users", uid), async (snap) => {
+                if(snap.exists()) {
+                    userData = snap.data();
+                } else {
+                    userData = { uid, name: user.first_name, balance: 0, lastTaskTime: 0, totalRefer: 0, officialJoined: false };
+                    await setDoc(doc(db, "users", uid), userData);
+                }
+                updateUI();
+                renderTasks();
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('app-container').style.opacity = '1';
+            });
             lucide.createIcons();
         }
 
         function updateUI() {
-            const b = (userData.balance || 0).toFixed(2);
-            document.getElementById('tk-balance').innerText = b;
-            document.getElementById('header-balance').innerText = "৳ " + b;
+            document.getElementById('tk-balance').innerText = userData.balance.toFixed(2);
+            document.getElementById('header-balance').innerText = "৳ " + userData.balance.toFixed(2);
+            document.getElementById('user-name').innerText = userData.name;
+            document.getElementById('user-id').innerText = userData.uid;
             document.getElementById('total-ref').innerText = userData.totalRefer || 0;
+            document.getElementById('official-box').style.display = userData.officialJoined ? 'none' : 'flex';
         }
+
+        window.joinOfficial = async () => {
+            window.open(config.linkTelegram, "_blank");
+            setTimeout(async () => {
+                await updateDoc(doc(db, "users", userData.uid), { balance: increment(50), officialJoined: true });
+                alert("জয়েন বোনাস ৫০ টাকা যোগ হয়েছে!");
+            }, 5000);
+        };
+
+        window.contactAdmin = () => window.open("https://t.me/" + config.linkAdmin, "_blank");
 
         function renderTasks() {
             const list = document.getElementById('task-list');
             list.innerHTML = '';
             const now = Date.now();
-            const cooldown = 3 * 60 * 60 * 1000;
+            const cooldown = 2 * 60 * 1000;
             const timeLeft = Math.max(0, (userData.lastTaskTime + cooldown) - now);
 
             for(let i=1; i<=3; i++) {
                 const isLocked = timeLeft > 0;
                 list.innerHTML += `
-                <div class="card-bg p-4 rounded-2xl flex justify-between items-center ${isLocked ? 'opacity-50' : ''}">
-                    <div class="flex items-center gap-3">🌐 <div><p class="font-bold text-sm">টাস্ক 0${i}</p><p class="text-xs text-emerald-500">৳ ৫০.০০</p></div></div>
-                    <button onclick="startTask(${i}, '${config['linkWeb'+i]}')" class="px-5 py-2 rounded-xl text-xs font-bold ${isLocked ? 'locked-btn' : 'btn-emerald'}">
-                        ${isLocked ? Math.ceil(timeLeft/60000) + 'm' : 'শুরু'}
+                <div class="card-bg p-5 rounded-2xl flex justify-between items-center ${isLocked ? 'opacity-40' : ''}">
+                    <div class="flex items-center gap-4">🌐 <div><p class="font-bold text-sm">টাস্ক 0${i}</p><p class="text-xs text-emerald-500">৳ ৫০.০০</p></div></div>
+                    <button onclick="startTask(${i}, '${config['linkWeb'+i]}')" class="px-6 py-2.5 rounded-xl text-xs font-bold ${isLocked ? 'locked-btn' : 'btn-emerald'}">
+                        ${isLocked ? Math.ceil(timeLeft/1000) + 's' : 'শুরু'}
                     </button>
                 </div>`;
             }
         }
 
-        window.startTask = function(id, url) {
-            if(!url) return alert("লিঙ্ক নেই!");
+        window.startTask = (id, url) => {
             window.open(url, "_blank");
             const overlay = document.getElementById('timer-overlay');
-            const circle = document.getElementById('timer-circle');
-            const text = document.getElementById('timer-text');
             overlay.classList.remove('hidden');
             let count = 30;
             const itv = setInterval(async () => {
-                count--; text.innerText = count;
-                circle.style.strokeDashoffset = 471 - (471 * (30 - count) / 30);
+                count--; document.getElementById('timer-text').innerText = count;
                 if(count <= 0) {
                     clearInterval(itv); overlay.classList.add('hidden');
-                    const userRef = doc(db, "users", userData.uid);
-                    await updateDoc(userRef, { balance: increment(50), lastTaskTime: Date.now() });
-                    userData.balance += 50; userData.lastTaskTime = Date.now();
-                    updateUI(); renderTasks(); alert("বোনাস ৳ ৫০ যোগ হয়েছে!");
+                    await updateDoc(doc(db, "users", userData.uid), { balance: increment(50), lastTaskTime: Date.now() });
                 }
             }, 1000);
-        }
-
-        function checkOfficial() {
-            if(userData.officialDone) {
-                document.getElementById('channel-action').innerHTML = `
-                    <button onclick="window.open('https://t.me/${config.linkAdmin}')" class="bg-white/5 w-full py-4 rounded-2xl text-xs font-bold">Contact Admin</button>
-                `;
-            }
-        }
-
-        window.doOfficialTask = async function() {
-            window.open(config.linkTelegram, "_blank");
-            setTimeout(async () => {
-                const userRef = doc(db, "users", userData.uid);
-                await updateDoc(userRef, { balance: increment(50), officialDone: true });
-                userData.balance += 50; userData.officialDone = true;
-                updateUI(); checkOfficial(); alert("বোনাস যোগ হয়েছে!");
-            }, 8000);
-        }
+        };
 
         window.navigateTo = (id, btn) => {
             document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('nav-active', 'text-gray-500'));
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('nav-active', 'text-emerald-500'));
             btn.classList.add('nav-active');
-        }
+        };
 
         document.getElementById('withdraw-btn').onclick = async () => {
             const amt = parseFloat(document.getElementById('withdraw-amount').value);
             const num = document.getElementById('payment-number').value;
-            if((userData.totalRefer||0) < 5) return alert("৫টি রেফার লাগবে!");
-            if(amt < 500 || amt > userData.balance) return alert("সঠিক এমাউন্ট দিন!");
+            if(amt < 500 || amt > userData.balance) return alert("সঠিক পরিমাণ দিন (মিনিমাম ৫০০)!");
+            if(!num) return alert("নম্বর দিন!");
             await updateDoc(doc(db, "users", userData.uid), { balance: increment(-amt) });
-            await addDoc(collection(db, "withdrawals"), { uid: userData.uid, name: userData.name, amount: amt, method: document.getElementById('withdraw-method').value, number: num, status: 'pending', time: serverTimestamp() });
-            userData.balance -= amt; updateUI(); alert("রিকোয়েস্ট পাঠানো হয়েছে!");
-        };
-
-        document.getElementById('share-btn').onclick = () => {
-            const link = `https://t.me/bdfreeincometkBot/app?startapp=${userData.uid}`;
-            navigator.clipboard.writeText(link); alert("লিঙ্ক কপি হয়েছে!");
+            await addDoc(collection(db, "withdrawals"), { uid: userData.uid, name: userData.name, amount: amt, method: 'Bkash/Nagad', number: num, time: serverTimestamp() });
+            alert("উইথড্র রিকোয়েস্ট পাঠানো হয়েছে!");
         };
 
         init();
