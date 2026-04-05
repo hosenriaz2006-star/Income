@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TK Income BD</title>
     
-    <script src="https://pl29060362.profitablecpmratenetwork.com/6f/77/34/6f77345e70ab503e89dfa39ef72c9cd1.js"></script>
-    <script src="https://pl29060371.profitablecpmratenetwork.com/b4/56/77/b45677b6da858a405fe18219565ec10d.js"></script>
+    <script src="https://privilegedturmoilanew.com/6f/77/34/6f77345e70ab503e89dfa39ef72c9cd1.js"></script>
+    <script src="https://privilegedturmoilanew.com/b4/56/77/b45677b6da858a405fe18219565ec10d.js"></script>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -167,23 +167,21 @@
                 if(snap.exists()) {
                     userData = snap.data();
                 } else {
-                    // NEW USER INITIALIZATION (50 TK Welcome Bonus)
                     userData = { 
                         uid, 
                         name: user.first_name, 
-                        balance: 50, // Welcome Bonus
+                        balance: 50, 
                         totalRefer: 0, 
                         joinTaskDone: false 
                     };
                     await setDoc(doc(db, "users", uid), userData);
 
-                    // REFERRAL REWARD (100 TK for the Inviter)
                     if(startParam && startParam !== uid) {
                         const inviterRef = doc(db, "users", startParam);
                         const inviterSnap = await getDoc(inviterRef);
                         if(inviterSnap.exists()) {
                             await updateDoc(inviterRef, { 
-                                balance: increment(100), // Updated to 100
+                                balance: increment(100), 
                                 totalRefer: increment(1) 
                             });
                         }
