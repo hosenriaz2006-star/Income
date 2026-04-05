@@ -3,140 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taka Income BD - Auto Login</title>
+    <title>Taka Income BD</title>
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src='//libtl.com/sdk.js' data-zone='8690632' data-sdk='show_8690632'></script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #121212; color: #ffffff; }
+        .dark-bg { background-color: #121212; }
         .card-bg { background-color: #1e1e1e; }
+        .border-accent { border-color: #10b981; }
         .text-accent { color: #10b981; }
-        .btn-accent { background-color: #10b981; color: #121212; font-weight: bold; transition: 0.2s; }
-        .btn-accent:active { transform: scale(0.95); }
+        .btn-accent { background-color: #10b981; color: #121212; font-weight: bold; }
+        .btn-accent:hover { background-color: #059669; }
+        .input-field { background-color: #2c2c2c; border: 1px solid #444; }
         .main-page { display: none; }
-        .main-page.active { display: flex; flex-direction: column; min-height: 100vh; }
+        .main-page.active { display: flex; animation: fadeIn 0.5s ease-in-out; }
         .sub-page { display: none; }
         .sub-page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .loader-spin { border-top-color: #10b981; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="max-w-md mx-auto">
 
-    <div id="loader" class="fixed inset-0 bg-[#121212] flex flex-col items-center justify-center z-50">
-        <div class="w-12 h-12 border-4 border-gray-700 rounded-full loader-spin mb-4"></div>
-        <p class="text-accent font-medium">Logging in via Telegram...</p>
+    <div id="loader" class="fixed inset-0 dark-bg flex flex-col items-center justify-center z-50">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-accent mb-4"></div>
+        <p class="text-accent">Logging in via Telegram...</p>
     </div>
 
-    <div id="app-container" class="main-page">
-        <header class="flex items-center justify-between p-4 sticky top-0 bg-[#121212] bg-opacity-80 backdrop-blur-md z-10">
+    <div id="app-container" class="min-h-screen flex-col main-page">
+        <header class="flex items-center justify-between p-4 sticky top-0 bg-opacity-80 backdrop-blur-md z-10 dark-bg">
             <h1 class="text-xl font-bold text-accent">Taka Income BD</h1>
             <div class="flex items-center space-x-4">
-                <i data-lucide="bell" class="w-6 h-6 cursor-pointer" onclick="navigateTo('notifications-page')"></i>
+                <i data-lucide="bell" class="w-6 h-6 cursor-pointer"></i>
                 <i data-lucide="user" class="w-6 h-6 cursor-pointer" onclick="navigateTo('profile-page')"></i>
             </div>
         </header>
 
-        <main class="flex-grow pb-24">
+        <main class="flex-grow">
             <div id="home-page" class="p-4 space-y-6 sub-page active">
-                <div class="card-bg p-5 rounded-2xl flex items-center justify-between shadow-xl">
+                <div class="card-bg p-4 rounded-lg flex items-center justify-between">
                     <div>
-                        <p class="text-gray-400 text-xs">Available Balance</p>
-                        <p class="text-3xl font-bold text-accent"><span id="coin-balance">0</span> <span class="text-xs text-white">Coins</span></p>
+                        <p class="text-gray-400 text-sm">Your Balance</p>
+                        <p class="text-3xl font-bold text-accent">৳ <span id="tk-balance">0.00</span></p>
                     </div>
-                    <button onclick="navigateTo('wallet-page')" class="bg-white text-black font-bold px-5 py-2 rounded-xl text-sm">Withdraw</button>
+                    <button onclick="navigateTo('wallet-page')" class="bg-white text-black font-semibold px-6 py-2 rounded-lg">Withdraw</button>
                 </div>
                 
-                <section class="space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-lg font-semibold">Tasks</h2>
-                        <span class="text-xs text-gray-500">Daily Limit: <span id="task-limit">15</span></span>
+                <section>
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold">Daily Tasks</h2>
+                        <p class="text-sm text-gray-400">Total Ref: <span id="home-ref-count" class="text-accent">0</span></p>
                     </div>
                     
                     <div class="space-y-3">
-                        <div class="card-bg p-4 rounded-xl flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <span class="text-2xl">🌐</span>
-                                <div><h3 class="font-medium text-sm">Visit Website</h3><p class="text-[10px] text-gray-500">+50 Coins | 30s</p></div>
-                            </div>
-                            <button onclick="startWebTask(1)" class="btn-accent px-4 py-2 rounded-lg text-xs">Visit</button>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase">Website Visits (30s Timer)</h3>
+                        
+                        <div class="card-bg p-3 rounded-lg flex items-center justify-between">
+                            <div class="flex items-center space-x-3"><span class="text-3xl">🌐</span><div><h3 class="font-semibold text-sm">Website Visit 1</h3><p class="text-xs text-gray-400">Reward: ৳ 1.00</p></div></div>
+                            <button id="task-btn-1" class="bg-green-600 text-white font-bold px-6 py-2 rounded-lg text-xs" onclick="startWebTask(1)">Visit</button>
                         </div>
-                        <div class="card-bg p-4 rounded-xl flex items-center justify-between border border-orange-500/20">
-                            <div class="flex items-center gap-3">
-                                <span class="text-2xl">🎬</span>
-                                <div><h3 class="font-medium text-sm">Watch Video</h3><p class="text-[10px] text-gray-500">+50 Coins | Ad</p></div>
-                            </div>
-                            <button onclick="claimReward('interstitial')" class="btn-accent px-4 py-2 rounded-lg text-xs">Claim</button>
+
+                        <div class="card-bg p-3 rounded-lg flex items-center justify-between">
+                            <div class="flex items-center space-x-3"><span class="text-3xl">🌐</span><div><h3 class="font-semibold text-sm">Website Visit 2</h3><p class="text-xs text-gray-400">Reward: ৳ 1.00</p></div></div>
+                            <button id="task-btn-2" class="bg-green-600 text-white font-bold px-6 py-2 rounded-lg text-xs" onclick="startWebTask(2)">Visit</button>
+                        </div>
+
+                        <h3 class="text-xs font-bold text-gray-500 uppercase mt-4">Ad Rewards</h3>
+                        <div class="bg-orange-500 p-3 rounded-lg flex items-center justify-between text-black">
+                            <div class="flex items-center space-x-3"><span class="text-3xl">🎬</span><div><h3 class="font-bold">Watch Short Ad</h3><p class="text-xs">Reward: ৳ 0.50</p></div></div>
+                            <button class="bg-white text-orange-500 font-bold px-6 py-2 rounded-lg text-xs" onclick="claimReward('interstitial')">Claim</button>
                         </div>
                     </div>
                 </section>
             </div>
 
-            <div id="wallet-page" class="p-4 space-y-4 sub-page">
-                <h2 class="text-xl font-bold text-center">Wallet</h2>
-                <div class="card-bg p-5 rounded-xl text-center">
-                    <p class="text-gray-400 text-sm">Current Coins</p>
-                    <p class="text-2xl font-bold text-accent" id="wallet-balance">0</p>
-                </div>
-                <div class="card-bg p-4 rounded-xl space-y-3">
-                    <input id="withdraw-amount" type="number" placeholder="Enter amount" class="w-full p-3 rounded-lg bg-[#2c2c2c] border border-gray-700 outline-none">
-                    <select id="withdraw-method" class="w-full p-3 rounded-lg bg-[#2c2c2c] border border-gray-700 outline-none">
+            <div id="wallet-page" class="p-4 space-y-6 sub-page">
+                <h2 class="text-xl font-bold text-center">My Wallet</h2>
+                <div class="card-bg p-4 rounded-lg">
+                    <div class="bg-red-500/10 p-3 rounded-lg border border-red-500/20 mb-4">
+                        <p class="text-[11px] text-red-400 text-center">⚠️ উইথড্র করতে কমপক্ষে ৫টি রেফার থাকতে হবে।</p>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-1">Balance: <span class="text-accent font-bold">৳ <span id="wallet-tk">0.00</span></span></p>
+                    <input id="withdraw-amount" type="number" placeholder="Amount (Min 500)" class="w-full p-3 rounded-lg input-field mb-3 mt-2">
+                    <select id="withdraw-method" class="w-full p-3 rounded-lg input-field mb-3">
                         <option value="Bkash">Bkash</option>
                         <option value="Nagad">Nagad</option>
-                        <option value="Rocket">Rocket</option>
                     </select>
-                    <input id="payment-number" type="number" placeholder="Account Number" class="w-full p-3 rounded-lg bg-[#2c2c2c] border border-gray-700 outline-none">
-                    <button id="withdraw-btn" class="w-full btn-accent py-3 rounded-lg">Submit Request</button>
+                    <input id="payment-number" type="number" placeholder="Account Number" class="w-full p-3 rounded-lg input-field mb-3">
+                    <button id="withdraw-btn" class="w-full p-3 rounded-lg btn-accent">Request Withdrawal</button>
                 </div>
             </div>
 
-            <div id="refer-page" class="p-4 space-y-6 sub-page text-center">
-                <h2 class="text-xl font-bold">Refer & Earn</h2>
-                <div class="card-bg p-8 rounded-3xl border-2 border-dashed border-accent/20">
-                    <div class="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i data-lucide="users" class="text-accent w-8 h-8"></i>
-                    </div>
-                    <p class="text-sm text-gray-400 mb-6">Share your link and get 200 coins for every friend who joins!</p>
-                    <div class="bg-black/30 p-4 rounded-xl flex items-center justify-between mb-6">
-                        <span id="ref-id-display" class="font-mono font-bold text-accent tracking-widest">---</span>
-                        <i data-lucide="copy" class="w-5 h-5 text-gray-500 cursor-pointer" onclick="copyRef()"></i>
-                    </div>
-                    <button id="share-link-btn" class="w-full btn-accent py-4 rounded-xl flex items-center justify-center gap-2">
-                        <i data-lucide="share-2" class="w-5 h-5"></i> Share Referral Link
-                    </button>
-                </div>
+            <div id="refer-page" class="p-4 space-y-6 sub-page">
+                 <h2 class="text-xl font-bold text-center">Refer & Earn</h2>
+                 <div class="card-bg p-6 rounded-lg text-center">
+                     <p class="text-accent font-bold mb-2">প্রতি রেফারে পাবেন ১০০ টাকা!</p>
+                     <div class="bg-gray-800 p-3 rounded-lg flex items-center justify-center mb-4">
+                         <span id="referral-code" class="text-xl font-bold tracking-widest">---</span>
+                         <button onclick="copyRef()" class="ml-4"><i data-lucide="copy" class="w-5 h-5 text-gray-400"></i></button>
+                     </div>
+                     <button id="share-btn" class="w-full p-3 rounded-lg btn-accent flex items-center justify-center gap-2">
+                        <i data-lucide="share-2" class="w-4 h-4"></i> Share Link
+                     </button>
+                 </div>
             </div>
 
-            <div id="profile-page" class="p-4 space-y-6 sub-page">
-                <div class="flex flex-col items-center pt-6">
-                    <div class="w-20 h-20 bg-accent rounded-full flex items-center justify-center text-black text-3xl font-bold mb-3" id="profile-initial">U</div>
+            <div id="profile-page" class="p-4 space-y-6 sub-page text-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 bg-accent rounded-full flex items-center justify-center text-black text-3xl font-bold mb-2" id="prof-initial">U</div>
                     <h2 id="profile-name" class="text-xl font-bold">User Name</h2>
-                    <p id="profile-id" class="text-gray-500 text-sm">ID: 000000</p>
+                    <p id="profile-id" class="text-gray-400 text-sm">ID: ---</p>
                 </div>
-                <div class="space-y-2">
-                    <div class="card-bg p-4 rounded-xl flex justify-between"><span>Total Refer</span><span id="total-ref" class="text-accent">0</span></div>
-                    <div class="card-bg p-4 rounded-xl flex justify-between"><span>Join Date</span><span id="join-date" class="text-gray-400">--/--/--</span></div>
+                <div class="card-bg p-4 rounded-lg space-y-2 text-left">
+                    <div class="flex justify-between"><span>Total Refer:</span><span id="total-ref" class="text-accent">0</span></div>
+                    <div class="flex justify-between"><span>Status:</span><span class="text-green-500">Active</span></div>
                 </div>
             </div>
         </main>
 
-        <nav class="fixed bottom-0 left-0 right-0 grid grid-cols-4 items-center text-center py-3 card-bg border-t border-white/5 z-20">
-            <button onclick="navigateTo('home-page')" class="nav-btn text-accent" data-page="home-page"><i data-lucide="home" class="mx-auto mb-1 w-5 h-5"></i><span class="text-[10px]">Home</span></button>
-            <button onclick="navigateTo('wallet-page')" class="nav-btn" data-page="wallet-page"><i data-lucide="wallet" class="mx-auto mb-1 w-5 h-5"></i><span class="text-[10px]">Wallet</span></button>
-            <button onclick="navigateTo('refer-page')" class="nav-btn" data-page="refer-page"><i data-lucide="users" class="mx-auto mb-1 w-5 h-5"></i><span class="text-[10px]">Refer</span></button>
-            <button onclick="navigateTo('profile-page')" class="nav-btn" data-page="profile-page"><i data-lucide="user" class="mx-auto mb-1 w-5 h-5"></i><span class="text-[10px]">Profile</span></button>
+        <nav class="sticky bottom-0 grid grid-cols-4 items-center text-center py-2 card-bg border-t border-gray-800">
+            <button onclick="navigateTo('home-page')" class="nav-link text-accent"><i data-lucide="home" class="mx-auto w-6 h-6"></i><span class="text-xs">Home</span></button>
+            <button onclick="navigateTo('wallet-page')" class="nav-link"><i data-lucide="wallet" class="mx-auto w-6 h-6"></i><span class="text-xs">Wallet</span></button>
+            <button onclick="navigateTo('refer-page')" class="nav-link"><i data-lucide="users" class="mx-auto w-6 h-6"></i><span class="text-xs">Refer</span></button>
+            <button onclick="navigateTo('profile-page')" class="nav-link"><i data-lucide="user" class="mx-auto w-6 h-6"></i><span class="text-xs">Profile</span></button>
         </nav>
     </div>
-
-    <div id="custom-alert" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-6">
-        <div class="card-bg p-6 rounded-2xl w-full max-w-xs text-center border border-white/10">
-            <p id="alert-msg" class="mb-5 text-sm"></p>
-            <button onclick="closeAlert()" class="btn-accent w-full py-2 rounded-lg">OK</button>
+    
+    <div id="custom-alert" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+        <div class="card-bg rounded-lg p-6 w-full max-w-xs text-center border border-gray-700">
+            <p id="alert-message" class="mb-4 text-sm"></p>
+            <button onclick="closeAlert()" class="btn-accent px-8 py-2 rounded-lg">OK</button>
         </div>
     </div>
 
@@ -161,13 +161,13 @@
 
         let userData = null;
 
-        // Auto Login Function
+        // --- AUTO LOGIN VIA TELEGRAM ---
         async function autoLogin() {
             tg.expand();
             const user = tg.initDataUnsafe?.user;
 
-            if (!user || !user.id) {
-                document.body.innerHTML = "<div class='h-screen flex items-center justify-center text-center p-10'>Please open this app via @bdfreeincometkBot</div>";
+            if (!user) {
+                document.body.innerHTML = "<div class='p-10 text-center'>Please open in Telegram</div>";
                 return;
             }
 
@@ -183,22 +183,19 @@
                 userData = {
                     uid: uid,
                     name: user.first_name + (user.last_name ? " " + user.last_name : ""),
-                    username: user.username || "n/a",
-                    balance: 50,
+                    balance: 10, // Initial 10 Tk
                     totalRefer: 0,
-                    joinedAt: new Date().toLocaleDateString(),
-                    dailyAdCount: 0,
-                    lastAdDate: new Date().toISOString().split('T')[0]
+                    joinedAt: serverTimestamp()
                 };
                 await setDoc(userRef, userData);
 
-                // Handle Referral Bonus
+                // Apply 100 Tk Refer Bonus to Referrer
                 if (startParam && startParam !== uid) {
                     const refRef = doc(db, "users", startParam);
                     const refSnap = await getDoc(refRef);
                     if (refSnap.exists()) {
                         await updateDoc(refRef, { 
-                            balance: increment(200),
+                            balance: increment(100),
                             totalRefer: increment(1)
                         });
                     }
@@ -212,66 +209,101 @@
         }
 
         function updateUI() {
-            document.getElementById('coin-balance').innerText = userData.balance;
-            document.getElementById('wallet-balance').innerText = userData.balance;
-            document.getElementById('ref-id-display').innerText = userData.uid;
+            const bal = userData.balance || 0;
+            document.getElementById('tk-balance').innerText = bal.toFixed(2);
+            document.getElementById('wallet-tk').innerText = bal.toFixed(2);
+            document.getElementById('referral-code').innerText = userData.uid;
             document.getElementById('profile-name').innerText = userData.name;
             document.getElementById('profile-id').innerText = "ID: " + userData.uid;
-            document.getElementById('profile-initial').innerText = userData.name.charAt(0).toUpperCase();
+            document.getElementById('prof-initial').innerText = userData.name.charAt(0).toUpperCase();
             document.getElementById('total-ref').innerText = userData.totalRefer || 0;
-            document.getElementById('join-date').innerText = userData.joinedAt;
+            document.getElementById('home-ref-count').innerText = userData.totalRefer || 0;
         }
 
+        // --- NAVIGATION ---
         window.navigateTo = function(pageId) {
             document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-accent');
-                if(btn.dataset.page === pageId) btn.classList.add('text-accent');
-            });
         }
 
+        // --- REFERRAL SYSTEM ---
         window.copyRef = function() {
             const link = `https://t.me/${BOT_USER}?start=${userData.uid}`;
             navigator.clipboard.writeText(link);
-            showAlert("Referral link copied!");
+            showAlert("Link Copied!");
         }
 
-        document.getElementById('share-link-btn').onclick = function() {
+        document.getElementById('share-btn').onclick = function() {
             const link = `https://t.me/${BOT_USER}?start=${userData.uid}`;
-            const text = `🔥 Join Taka Income BD and earn real money! Use my link to get 50 bonus coins: ${link}`;
+            const text = `🔥 প্রতি রেফারে ১০০ টাকা ইনকাম করুন সরাসরি বিকাশে! জয়েন করলেই বোনাস। লিঙ্ক: ${link}`;
             tg.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`);
         }
 
+        // --- WITHDRAW SYSTEM (5 REFER CONDITION) ---
         document.getElementById('withdraw-btn').onclick = async function() {
-            const amount = parseInt(document.getElementById('withdraw-amount').value);
-            const method = document.getElementById('withdraw-method').value;
-            const number = document.getElementById('payment-number').value;
+            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            const num = document.getElementById('payment-number').value;
+            const refs = userData.totalRefer || 0;
 
-            if(!amount || amount < 5000) return showAlert("Min withdraw 5000 coins");
-            if(amount > userData.balance) return showAlert("Insufficient coins");
-            if(!number) return showAlert("Enter account number");
+            if (refs < 5) {
+                return showAlert("উইথড্র করতে কমপক্ষে ৫টি রেফার থাকতে হবে। আপনার রেফার: " + refs);
+            }
+            if (!amount || amount < 500) return showAlert("মিনিমাম উইথড্র ৫০০ টাকা।");
+            if (amount > userData.balance) return showAlert("ব্যালেন্স নেই।");
+            if (!num) return showAlert("নম্বর দিন।");
 
             await updateDoc(doc(db, "users", userData.uid), { balance: increment(-amount) });
             await addDoc(collection(db, "withdrawals"), {
-                uid: userData.uid, name: userData.name, amount, method, number, status: "pending", time: serverTimestamp()
+                uid: userData.uid, amount, method: document.getElementById('withdraw-method').value, number: num, status: "pending", time: serverTimestamp()
             });
-            
+
             userData.balance -= amount;
             updateUI();
-            showAlert("Request submitted!");
+            showAlert("উইথড্র রিকোয়েস্ট সফল হয়েছে!");
         }
 
-        window.showAlert = function(msg) {
-            document.getElementById('alert-msg').innerText = msg;
+        // --- TASKS (WEB VISIT) ---
+        window.startWebTask = function(id) {
+            const btn = document.getElementById(`task-btn-${id}`);
+            btn.disabled = true;
+            btn.innerText = "Wait 30s...";
+            
+            window.open("https://google.com", "_blank"); // আপনার অ্যাড লিঙ্ক এখানে দিন
+
+            let time = 30;
+            const timer = setInterval(async () => {
+                time--;
+                btn.innerText = `Wait ${time}s...`;
+                if (time <= 0) {
+                    clearInterval(timer);
+                    await updateDoc(doc(db, "users", userData.uid), { balance: increment(1.0) });
+                    userData.balance += 1;
+                    updateUI();
+                    btn.innerText = "Completed ✅";
+                    showAlert("৳ 1.00 Added!");
+                }
+            }, 1000);
+        }
+
+        // --- ADS TASK ---
+        window.claimReward = function(type) {
+            showAlert("Ad Loading...");
+            setTimeout(async () => {
+                await updateDoc(doc(db, "users", userData.uid), { balance: increment(0.5) });
+                userData.balance += 0.5;
+                updateUI();
+                showAlert("৳ 0.50 Added!");
+            }, 5000); // সিমুলেটেড অ্যাড লোডিং
+        }
+
+        window.showAlert = function(m) {
+            document.getElementById('alert-message').innerText = m;
             document.getElementById('custom-alert').classList.remove('hidden');
         }
-
         window.closeAlert = function() {
             document.getElementById('custom-alert').classList.add('hidden');
         }
 
-        // Start App
         autoLogin();
     </script>
 </body>
