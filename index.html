@@ -71,7 +71,7 @@
                 <div class="card-bg p-8 rounded-[2rem] text-center">
                     <i data-lucide="users" class="w-12 h-12 text-emerald-500 mx-auto mb-4"></i>
                     <h2 class="text-xl font-bold">রেফার ও আয়</h2>
-                    <p class="text-gray-400 text-xs mt-2">প্রতি সফল রেফারে পাবেন ৫০ টাকা।</p>
+                    <p class="text-gray-400 text-xs mt-2">প্রতি সফল রেফারে পাবেন ১০০ টাকা।</p>
                     <div class="mt-6 p-4 bg-black/40 rounded-2xl border border-white/5 break-all text-[10px] font-mono" id="refer-link-text">Loading...</div>
                     <button onclick="copyRefer()" class="w-full btn-emerald py-4 rounded-2xl mt-4 flex items-center justify-center gap-2 text-sm">
                         <i data-lucide="copy" class="w-4"></i> কপি লিঙ্ক
@@ -167,10 +167,26 @@
                 if(snap.exists()) {
                     userData = snap.data();
                 } else {
-                    userData = { uid, name: user.first_name, balance: 0, totalRefer: 0, joinTaskDone: false };
+                    // NEW USER INITIALIZATION (50 TK Welcome Bonus)
+                    userData = { 
+                        uid, 
+                        name: user.first_name, 
+                        balance: 50, // Welcome Bonus
+                        totalRefer: 0, 
+                        joinTaskDone: false 
+                    };
                     await setDoc(doc(db, "users", uid), userData);
+
+                    // REFERRAL REWARD (100 TK for the Inviter)
                     if(startParam && startParam !== uid) {
-                        await updateDoc(doc(db, "users", startParam), { balance: increment(50), totalRefer: increment(1) });
+                        const inviterRef = doc(db, "users", startParam);
+                        const inviterSnap = await getDoc(inviterRef);
+                        if(inviterSnap.exists()) {
+                            await updateDoc(inviterRef, { 
+                                balance: increment(100), // Updated to 100
+                                totalRefer: increment(1) 
+                            });
+                        }
                     }
                 }
                 updateUI();
@@ -188,7 +204,6 @@
             document.getElementById('total-ref').innerText = userData.totalRefer || 0;
             document.getElementById('req-ref').innerText = userData.totalRefer || 0;
             
-            // Join Task Visibility (Only if not done)
             const joinBox = document.getElementById('join-task-box');
             if(userData.joinTaskDone) {
                 joinBox.classList.add('hidden');
@@ -255,7 +270,7 @@
 
         document.getElementById('withdraw-btn').onclick = async () => {
             if((userData.totalRefer || 0) < 5) {
-                alert("দুঃখিত! উইথড্র করতে কমপক্ষে ৫টি রেফার প্রয়োজন। আপনার রেফার: " + (userData.totalRefer || 0));
+                alert("দুঃখিত! উইথড্র করতে কমপক্ষে ৫টি রেফার প্রয়োজন।");
                 return;
             }
             const amt = parseFloat(document.getElementById('withdraw-amount').value);
